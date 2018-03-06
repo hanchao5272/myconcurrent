@@ -3,6 +3,7 @@ package pers.hanchao.flavors;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -26,6 +27,10 @@ public class FlavorThreadsDemo implements IFlavorDemo {
         //将存放查询的数据类型设置为"Atomic"类型，保证原子性
         AtomicReference<String> result = new AtomicReference<String>();
         LOGGER.info("通过裸线程进行并发编程，自己控制现场数量：" + engines.size());
+
+        //使用原子变量去测试裸线程创建是否有序
+        AtomicInteger count = new AtomicInteger();
+
         //针对每一个搜索引擎，都开启一个线程进行查询
         for (String engine : engines) {
             //通过java8提供的lambda表达式创建线程
@@ -39,7 +44,8 @@ public class FlavorThreadsDemo implements IFlavorDemo {
                         }
                     }
             ).start();//通过.start()启动线程
-            LOGGER.info("为搜索引擎[" + engine + "]创建一个线程...");
+            LOGGER.info("为搜索引擎[" + engine + "]创建" + count + "个线程...");
+            count.getAndIncrement();
         }
         //无限循环，直至result有值为止
         while (result.get() == null) ;

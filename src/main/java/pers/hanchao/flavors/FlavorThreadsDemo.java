@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author hanchao 2018/3/5 21:53
  **/
-public class FlavorThreadsDemo {
+public class FlavorThreadsDemo implements IFlavorDemo {
     private static final Logger LOGGER = Logger.getLogger(FlavorThreadsDemo.class);
 
     /**
@@ -21,7 +21,8 @@ public class FlavorThreadsDemo {
      * @return 最先查出的结果
      * @author hanchao 2018/3/5 22:05
      */
-    public static String getFirstResult(String question, List<String> engines) {
+    @Override
+    public String getFirstResult(String question, List<String> engines) {
         //将存放查询的数据类型设置为"Atomic"类型，保证原子性
         AtomicReference<String> result = new AtomicReference<String>();
         LOGGER.info("通过裸线程进行并发编程，自己控制现场数量：" + engines.size());
@@ -55,7 +56,7 @@ public class FlavorThreadsDemo {
         //通过工具类获取搜索引擎列表
         List<String> engines = EngineUtils.getEngineList();
         //通过 裸线程 进行并发查询，获取最先查到的答案
-        String result = getFirstResult("正则表达式", engines);
+        String result = new FlavorThreadsDemo().getFirstResult("正则表达式", engines);
         //打印结果
         LOGGER.info(result);
     }

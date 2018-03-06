@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * 并发四种口味-02 Executor
  * Created by 韩超 on 2018/3/6.
  */
-public class FlavorExecutorsDemo {
+public class FlavorExecutorsDemo implements IFlavorDemo  {
     private final static Logger LOGGER = Logger.getLogger(FlavorExecutorsDemo.class);
 
     /**
@@ -21,7 +21,8 @@ public class FlavorExecutorsDemo {
      * @param engines  搜索引擎列表
      * @author 韩超 2018/3/6 10:07
      */
-    public static String getFirstResult(String question, List<String> engines){
+    @Override
+    public String getFirstResult(String question, List<String> engines){
         //将查询结果放在"Atomic"变量中，保证原子性
         AtomicReference<String> result = new AtomicReference<String>();
 
@@ -61,7 +62,7 @@ public class FlavorExecutorsDemo {
         //通过工具类获取搜索引擎列表
         List<String> engines = EngineUtils.getEngineList();
         //通过 executor 进行并发查询，获取最先查到的答案
-        String result = getFirstResult("如何使用筷子？", engines);
+        String result = new FlavorExecutorsDemo().getFirstResult("如何使用筷子？", engines);
         //打印结果
         LOGGER.info(result);
     }

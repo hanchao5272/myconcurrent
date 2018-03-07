@@ -29,7 +29,7 @@ public class FlavorThreadsDemo implements IFlavorDemo {
         LOGGER.info("通过裸线程进行并发编程，自己控制现场数量：" + engines.size());
 
         //使用原子变量去测试裸线程创建是否有序
-        AtomicInteger count = new AtomicInteger();
+        AtomicInteger count = new AtomicInteger(1);
 
         //针对每一个搜索引擎，都开启一个线程进行查询
         for (String engine : engines) {

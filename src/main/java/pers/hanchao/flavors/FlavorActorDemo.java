@@ -150,7 +150,7 @@ public class FlavorActorDemo implements IFlavorDemo {
             } else {//如果没有收到处理结果，则创建搜索引擎Actor进行查询
 
                 //使用原子变量去测试Actor的创建是否有序
-                AtomicInteger count = new AtomicInteger();
+                AtomicInteger count = new AtomicInteger(1);
 
                 //针对每一个搜索引擎，都创建一个Actor
                 for (String engine : engines) {

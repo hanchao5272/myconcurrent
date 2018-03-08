@@ -1,4 +1,4 @@
-package pers.hanchao.concurrent.common;
+package pers.hanchao.concurrent.eg00.common;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package pers.hanchao.concurrent.common;
+package pers.hanchao.concurrent.eg00.common;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.log4j.Logger;

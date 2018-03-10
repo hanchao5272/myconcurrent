@@ -1,8 +1,8 @@
-package pers.hanchao.concurrent.eg00.bare;
+package pers.hanchao.concurrent.eg99.bare;
 
 import org.apache.log4j.Logger;
 
-import pers.hanchao.concurrent.eg00.common.SearchEngineUtils;
+import pers.hanchao.concurrent.eg99.common.SearchEngineUtils;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 

@@ -89,6 +89,7 @@ public class ConcurrentAtomicityDemo {
      **/
     public static void main(String[] args) throws InterruptedException {
         //变量的原子操作
+        LOGGER.info("a = true包含一个操作：1.在工作期间内，将true的值赋给a。所以将常量复制给变量，是一个原子操作。");
         LOGGER.info("a = 5包含一个操作：1.在工作期间内，将5的值赋给a。所以将常量复制给变量，是一个原子操作。");
         LOGGER.info("a = b包含两个操作：1.去主内存读取b的值写入工作内存；2.将b的值赋值给a。所以将变量赋值给变量，不是原子操作: ");
         LOGGER.info("a = b + 2包含三个操作：1.从主内存中读取b写入工作内存；2.在工作内存中b+2；3将b+2的值赋值给a。所以不是原子操作");

@@ -25,7 +25,7 @@ public class MyThread extends Thread {
      **/
     @Override
     public void run(){
-        Integer interval = RandomUtils.nextInt(3000,5000);
+        Integer interval = RandomUtils.nextInt(1000,9000);
         LOGGER.info("线程[" + super.getName() + "]正在运行，预计运行" + interval + "...");
         try {
 

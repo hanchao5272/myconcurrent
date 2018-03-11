@@ -35,6 +35,13 @@ public class ThreadYieldDemo {
      * @author hanchao 2018/3/11 16:19
      **/
     public static void main(String[] args) throws InterruptedException {
+        /**
+         * 1.t.yield()方法针对的是running状态的线程
+         * 2.t.yield()方法：t线程告诉CPU，它愿意将CPU资源让出
+         * 3.调用了t.yield()并不一定100%让出资源，取决于CPU的调度情况
+         * 4.t.yield()只会将资源让给同样优先级基本的线程
+         */
+
         //定义四辆汽车
         Thread thread1 = new Thread(new LearnToDriver(), "银卡会员AAA");
         Thread thread2 = new Thread(new LearnToDriver(), "银卡会员BBB");

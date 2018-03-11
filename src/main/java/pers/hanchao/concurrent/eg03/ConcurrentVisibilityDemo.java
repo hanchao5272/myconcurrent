@@ -1,13 +1,9 @@
 package pers.hanchao.concurrent.eg03;
 
-import org.apache.commons.lang3.RandomUtils;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * <p>并发可见性实例</p>
@@ -30,7 +26,7 @@ public class ConcurrentVisibilityDemo {
     private static AtomicBoolean shotByArrowWithAtomic = new AtomicBoolean(false);
 
     /**
-     * <p>（普通共享变量，无法保证有序性）冒险家类：冒险家一致在冒险，直到他膝盖中了一箭</p>
+     * <p>（普通共享变量，无法保证可见性）冒险家类：冒险家一致在冒险，直到他膝盖中了一箭</p>
      *
      * @author hanchao 2018/3/10 16:40
      **/
@@ -51,7 +47,7 @@ public class ConcurrentVisibilityDemo {
     }
 
     /**
-     * <p>(使用volatile关键字保证有序性)冒险家类：冒险家一致在冒险，直到他膝盖中了一箭</p>
+     * <p>(使用volatile关键字保证可见性)冒险家类：冒险家一致在冒险，直到他膝盖中了一箭</p>
      *
      * @author hanchao 2018/3/10 16:40
      **/
@@ -72,7 +68,7 @@ public class ConcurrentVisibilityDemo {
     }
 
     /**
-     * <p>（使用Atomic保证有序性）冒险家类：冒险家一致在冒险，直到他膝盖中了一箭</p>
+     * <p>（使用Atomic保证可见性）冒险家类：冒险家一致在冒险，直到他膝盖中了一箭</p>
      *
      * @author hanchao 2018/3/10 16:40
      **/
@@ -107,9 +103,9 @@ public class ConcurrentVisibilityDemo {
         Long interval = 5000L;
         int type = 2;
         /**
-         * 0:普通共享变量 无法保证有序性
-         * 1:使用 volatile关键字 保证有序性
-         * 2:使用 Atomic类型 保证有序性
+         * 0:普通共享变量 无法保证可见性
+         * 1:使用 volatile关键字 保证可见性
+         * 2:使用 Atomic类型 保证可见性
          */
         switch (type) {
             case 0:
@@ -126,7 +122,7 @@ public class ConcurrentVisibilityDemo {
                 LOGGER.info("还剩下" + num.get() + "个冒险家[Adventurer]没有中箭...");
                 break;
             case 1:
-                //使用volatile保证有序性
+                //使用volatile保证可见性
                 for (int i = 0; i < num.get(); i++) {
                     Thread adventurer = new AdventurerWithVolatile();
                     adventurer.setName("[" + i + "]");
@@ -139,7 +135,7 @@ public class ConcurrentVisibilityDemo {
                 LOGGER.info("还剩下" + num.get() + "个冒险家[AdventurerWithVolatile]没有中箭...");
                 break;
             case 2:
-                //使用Atomic变量保证有序性
+                //使用Atomic变量保证可见性
                 for (int i = 0; i < num.get(); i++) {
                     Thread adventurer = new AdventurerWithAtomic();
                     adventurer.setName("[" + i + "]");

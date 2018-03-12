@@ -47,7 +47,7 @@ public class ThreadYieldDemo {
         Thread thread2 = new Thread(new LearnToDriver(), "银卡会员BBB");
         Thread thread3 = new Thread(new LearnToDriver(), "铜卡会员CCC");
         Thread thread4 = new Thread(new LearnToDriver(), "金卡会员DDD");
-        //设置优先级
+        //设置优先级，线程1、2默认优先级为5=Thread.NORM_PRIORITY，无需修改
         thread3.setPriority(Thread.MIN_PRIORITY);
         thread4.setPriority(Thread.MAX_PRIORITY);
         //启动所有汽车

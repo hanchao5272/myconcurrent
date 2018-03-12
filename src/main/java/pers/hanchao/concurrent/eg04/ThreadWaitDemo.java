@@ -21,8 +21,6 @@ public class ThreadWaitDemo {
     //当厨房还剩几个菜时，继续炒菜
     private static int minSize = 2;
 
-    //
-
     /**
      * <p>菜品工具类</p>
      *
@@ -55,7 +53,7 @@ public class ThreadWaitDemo {
                     if (maxSize == foodQueue.size()) {
                         try {
                             LOGGER.info("厨房菜架满了,厨房不必再茶菜,等着前厅通着再炒菜,当前菜架:" + foodQueue.toString());
-                            foodQueue.wait();
+                            foodQueue.wait(111);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

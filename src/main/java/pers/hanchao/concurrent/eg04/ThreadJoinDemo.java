@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 public class ThreadJoinDemo {
     private static final Logger LOGGER = Logger.getLogger(ThreadJoinDemo.class);
 
+    //线程间的共享资源
+    private static String config = "配置未被初始化.";
     /**
      * <p>join：让当前线程等待指定的线程结束</p>
      *
@@ -24,6 +26,7 @@ public class ThreadJoinDemo {
                 LOGGER.info("[线程2]开始运行...");
                 try {
                     Thread.sleep(200);//线程2运行200毫秒
+                    config = "配置已被[线程2]初始化.";
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -36,6 +39,7 @@ public class ThreadJoinDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            LOGGER.info("[线程1]获取的配置为：" + config);
             LOGGER.info("[线程1]运行结束");
         }).start();//启动线程1
 
@@ -49,6 +53,7 @@ public class ThreadJoinDemo {
                 LOGGER.info("[线程22]开始运行...");
                 try {
                     Thread.sleep(200);//线程22运行200毫秒
+                    config = "配置已被[线程22]初始化.";
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -61,11 +66,13 @@ public class ThreadJoinDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            LOGGER.info("[线程11]等待[线程22]结束");
             try {
                 Thread.sleep(100);//线程11运行100毫秒
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            LOGGER.info("[线程1]获取的配置为：" + config);
             LOGGER.info("[线程11]运行结束");
         }).start();//启动线程11
     }

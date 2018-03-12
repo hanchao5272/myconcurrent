@@ -3,12 +3,18 @@ package pers.hanchao.concurrent.eg01;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.log4j.Logger;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.atomic.LongAdder;
+
 /**
  * <p>自定义线程02：实现Runnable接口</p>
  * @author hanchao 2018/3/8 23:04
  **/
 public class MyRunnableImpl implements Runnable{
     private static final Logger LOGGER = Logger.getLogger(MyRunnableImpl.class);
+
     /** 线程名(需要手动指定) */
     private String name;
 
@@ -25,7 +31,7 @@ public class MyRunnableImpl implements Runnable{
     }
 
     /**
-     * <p>义务代码在run()方法中</p>
+     * <p>义务代码在run()方法中，此方法无返回值</p>
      * @author hanchao 2018/3/8 23:07
      **/
     @Override
@@ -33,7 +39,6 @@ public class MyRunnableImpl implements Runnable{
         Integer interval = RandomUtils.nextInt(1000,5000);
         LOGGER.info("线程[" + this.getName() + "]正在运行，预计运行" + interval + "...");
         try {
-
             Thread.sleep(interval);
         } catch (InterruptedException e) {
             e.printStackTrace();

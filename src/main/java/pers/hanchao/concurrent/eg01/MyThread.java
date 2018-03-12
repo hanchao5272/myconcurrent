@@ -20,15 +20,16 @@ public class MyThread extends Thread {
     }
 
     /**
-     * <p>业务代码写在run()方法中</p>
+     * <p>业务代码写在run()方法中，此方法无返回值</p>
      * @author hanchao 2018/3/8 22:55
      **/
     @Override
     public void run(){
+        //run()方法无法抛出异常
+//    public void run() throws Exception{
         Integer interval = RandomUtils.nextInt(1000,9000);
         LOGGER.info("线程[" + super.getName() + "]正在运行，预计运行" + interval + "...");
         try {
-
             Thread.sleep(interval);
         } catch (InterruptedException e) {
             e.printStackTrace();

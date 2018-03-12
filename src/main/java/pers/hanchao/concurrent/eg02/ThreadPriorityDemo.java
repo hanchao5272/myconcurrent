@@ -27,9 +27,10 @@ public class ThreadPriorityDemo {
         LOGGER.info("默认的线程的优先级是：" + new Thread().getPriority());
         LOGGER.info("线程的优先级具有继承性：" + new MyThread("自定义线程").getPriority());
 
+        System.out.println();
         //优先级与线程的执行顺序
         //注意多核CPU与单核CPU
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             Thread thread;
             //部分线程设置为高级线程
             if ( i % 2 == 0){

@@ -27,7 +27,7 @@ public class MyThread extends Thread {
     public void run(){
         //run()方法无法抛出异常
 //    public void run() throws Exception{
-        Integer interval = RandomUtils.nextInt(1000,9000);
+        Integer interval = RandomUtils.nextInt(100,500);
         LOGGER.info("线程[" + super.getName() + "]正在运行，预计运行" + interval + "...");
         try {
             Thread.sleep(interval);

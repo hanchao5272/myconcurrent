@@ -88,67 +88,85 @@ public class ConcurrentVisibilityDemo {
         }
     }
 
+    private static boolean myThreadStop;
+    private static boolean mainStop;
+
     /**
      * <p>并发可见性实例</p>
      *
      * @author hanchao 2018/3/10 15:40
      **/
     public static void main(String[] args) throws InterruptedException {
-        //简言
-        LOGGER.info("可见性:在工作内存中，对一个变量修改时，能够保证修改的值即被更新到主内存中，从而被其他线程看见。");
-        LOGGER.info("普通的共享变量不能保证可见性，应为在工作区间修改完成后，什么时候更新到内存中，是不确定的。");
-        LOGGER.info("Java中能够保证变量可见性的有：volatile关键字、synchronized代码块、Lock接口以及Atomic类型。\n");
 
-        num.compareAndSet(0,2);
-        Long interval = 5000L;
-        int type = 0;
-        /**
-         * 0:普通共享变量 无法保证可见性
-         * 1:使用 volatile关键字 保证可见性
-         * 2:使用 Atomic类型 保证可见性
-         */
-        switch (type) {
-            case 0:
-                //使用普通的贡献变量不能保证可见性
-                for (int i = 0; i < num.get(); i++) {
-                    Thread adventurer = new Adventurer();
-                    adventurer.setName("[" + i + "]");
-                    adventurer.start();
+        Thread myThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mainStop = true;
+                while (!myThreadStop) {
                 }
-                //向冒险家的膝盖射箭
-                shotByArrow = true;
-                //等待足够长的时间，让能够结束的线程都结束
-                Thread.sleep(interval);
-                LOGGER.info("还剩下" + num.get() + "个冒险家[Adventurer]没有中箭...");
-                break;
-            case 1:
-                //使用volatile保证可见性
-                for (int i = 0; i < num.get(); i++) {
-                    Thread adventurer = new AdventurerWithVolatile();
-                    adventurer.setName("[" + i + "]");
-                    adventurer.start();
-                }
-                //向冒险家的膝盖射箭
-                shotByArrowWithVolatile = true;
-                //等待足够长的时间，让能够结束的线程都结束
-                Thread.sleep(interval);
-                LOGGER.info("还剩下" + num.get() + "个冒险家[AdventurerWithVolatile]没有中箭...");
-                break;
-            case 2:
-                //使用Atomic变量保证可见性
-                for (int i = 0; i < num.get(); i++) {
-                    Thread adventurer = new AdventurerWithAtomic();
-                    adventurer.setName("[" + i + "]");
-                    adventurer.start();
-                }
-                //向冒险家的膝盖射箭
-                shotByArrowWithAtomic.compareAndSet(false, true);
-                //等待足够长的时间，让能够结束的线程都结束
-                Thread.sleep(interval);
-                LOGGER.info("还剩下" + num.get() + "个冒险家[AdventurerWithAtomic]没有中箭...");
-                break;
-            default:
-                break;
+
+            }
+        });
+        myThread.start();
+        myThreadStop = true;
+        while (!mainStop) {
         }
+
+//        //简言
+//        LOGGER.info("可见性:在工作内存中，对一个变量修改时，能够保证修改的值即被更新到主内存中，从而被其他线程看见。");
+//        LOGGER.info("普通的共享变量不能保证可见性，应为在工作区间修改完成后，什么时候更新到内存中，是不确定的。");
+//        LOGGER.info("Java中能够保证变量可见性的有：volatile关键字、synchronized代码块、Lock接口以及Atomic类型。\n");
+//
+//        num.compareAndSet(0,2);
+//        Long interval = 100L;
+//        int type = 0;
+//        /**
+//         * 0:普通共享变量 无法保证可见性
+//         * 1:使用 volatile关键字 保证可见性
+//         * 2:使用 Atomic类型 保证可见性
+//         */
+//        switch (type) {
+//            case 0:
+//                //使用普通的贡献变量不能保证可见性
+//                for (int i = 0; i < num.get(); i++) {
+//                    Thread adventurer = new Adventurer();
+//                    adventurer.setName("[" + i + "]");
+//                    adventurer.start();
+//                }
+//                //向冒险家的膝盖射箭
+//                shotByArrow = true;
+//                //等待足够长的时间，让能够结束的线程都结束
+//                Thread.sleep(interval);
+//                LOGGER.info("还剩下" + num.get() + "个冒险家[Adventurer]没有中箭...");
+//                break;
+//            case 1:
+//                //使用volatile保证可见性
+//                for (int i = 0; i < num.get(); i++) {
+//                    Thread adventurer = new AdventurerWithVolatile();
+//                    adventurer.setName("[" + i + "]");
+//                    adventurer.start();
+//                }
+//                //向冒险家的膝盖射箭
+//                shotByArrowWithVolatile = true;
+//                //等待足够长的时间，让能够结束的线程都结束
+//                Thread.sleep(interval);
+//                LOGGER.info("还剩下" + num.get() + "个冒险家[AdventurerWithVolatile]没有中箭...");
+//                break;
+//            case 2:
+//                //使用Atomic变量保证可见性
+//                for (int i = 0; i < num.get(); i++) {
+//                    Thread adventurer = new AdventurerWithAtomic();
+//                    adventurer.setName("[" + i + "]");
+//                    adventurer.start();
+//                }
+//                //向冒险家的膝盖射箭
+//                shotByArrowWithAtomic.compareAndSet(false, true);
+//                //等待足够长的时间，让能够结束的线程都结束
+//                Thread.sleep(interval);
+//                LOGGER.info("还剩下" + num.get() + "个冒险家[AdventurerWithAtomic]没有中箭...");
+//                break;
+//            default:
+//                break;
+//        }
     }
 }

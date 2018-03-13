@@ -101,7 +101,7 @@ public class ConcurrentVisibilityDemo {
 
         num.compareAndSet(0,2);
         Long interval = 5000L;
-        int type = 2;
+        int type = 0;
         /**
          * 0:普通共享变量 无法保证可见性
          * 1:使用 volatile关键字 保证可见性

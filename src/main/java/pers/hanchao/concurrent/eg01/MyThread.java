@@ -45,7 +45,7 @@ public class MyThread extends Thread {
     public static void main(String[] args) {
         for (int i = 0; i < 5; i++) {
             //通过new创建一个线程
-            Thread thread = new MyThread("MyThread-" + i);
+            Thread thread = new MyThread("ForLoopThread-" + i);
             //通过start()启动线程
             thread.start();
         }

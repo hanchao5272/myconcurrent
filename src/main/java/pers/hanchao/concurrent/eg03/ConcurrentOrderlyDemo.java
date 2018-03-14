@@ -149,21 +149,45 @@ public class ConcurrentOrderlyDemo {
         LOGGER.info("并发安全的有序性：在单个线程中，代码是串行执行的，在多个线程中，每个单线程的部分是串行的");
         System.out.println();
         /**
-         * 9 = 无序
-         * 1 = synchronized
-         * 2 = lock
-         * 3 = Atomic
-         * 4 = volatile
+         * 0 = 无序          no
+         * 1 = synchronized ok
+         * 2 = lock         ok
+         * 3 = Atomic       no
+         * 4 = volatile     no
          */
-        int type = 4;
+        int type = 0;
         switch (type) {
             case 0:
                 //不采取有序性措施,也没有发生有序性问题.....
                 LOGGER.info("不采取措施：单线程串行，视为有序；多线程交叉串行，视为无序。");
-                new AtomicThread("A").start();
-                new AtomicThread("B").start();
-                new AtomicThread("C").start();
-                new AtomicThread("D").start();
+                new Thread(()->{
+                    x = x + 1;
+                    System.out.println("x = x + 1");
+                    x = x - 1;
+                    System.out.println("x = x - 1");
+                }).start();
+                new Thread(()->{
+                    x = x * 2;
+                    System.out.println("x = x * 2");
+                    x = x - 2;
+                    System.out.println("x = x / 2");
+                }).start();
+                Thread.sleep(100);
+                LOGGER.info("预期：x=y=2");
+                LOGGER.info("x=" + x + ",y=" + y);
+
+                Thread.sleep(1000);
+                for(int i = 0; i < 10; i++) {
+                  for(int j = 0; j < 10; j++) {
+                    LOGGER.info("j=" + j++);
+                    break;
+                  }
+                  LOGGER.info("i=" + i++);
+                }
+//                new AtomicThread("A").start();
+//                new AtomicThread("B").start();
+//                new AtomicThread("C").start();
+//                new AtomicThread("D").start();
                 break;
             case 1:
                 LOGGER.info("通过synchronized保证有序性：成功");

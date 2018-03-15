@@ -2,7 +2,7 @@ package pers.hanchao.concurrent.eg03;
 
 import org.apache.log4j.Logger;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -13,129 +13,30 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ConcurrentOrderlyDemo {
     private static final Logger LOGGER = Logger.getLogger(ConcurrentOrderlyDemo.class);
     ///////////////////////////////////////////////  并发有序性 无保障 ///////////////////////////////////////////////
-    static int x = 0;
-    static int y = 0;
-    static int z = 0;
-    static int w = 0;
-
-    /**
-     * <p>Title: 不采取措施-导致：单线程来看有序，多线程来看无序性</p>
-     *
-     * @author 韩超 2018/3/13 16:50
-     */
-    static class DisorderedThread extends Thread {
-        public DisorderedThread(String name) {
-            super(name);
-        }
-
-        @Override
-        public void run() {
-            System.out.println(super.getName() + ".x = " + x++);
-            System.out.println(super.getName() + ".y = " + y++);
-            System.out.println(super.getName() + ".z = " + z++);
-            System.out.println(super.getName() + ".w = " + w++);
-        }
-    }
+    static String a1 = new String("A : x = x + 1");
+    static String a2 = new String("A : x = x - 1");
+    static String b1 = new String("B : x = x * 2");
+    static String b2 = new String("B : x = x / 2");
 
     ///////////////////////////////////////////////  通过synchronized保证并发有序性 ///////////////////////////////////////////////
     //定义一个对象用于同步块
-    static byte[] lock = new byte[0];
-
-    /**
-     * <p>Title: 使用synchronized保证有序性</p>
-     *
-     * @author 韩超 2018/3/13 16:53
-     */
-    static class SynchronizedThread extends Thread {
-        public SynchronizedThread(String name) {
-            super(name);
-        }
-
-        @Override
-        public void run() {
-            synchronized (lock) {
-                System.out.println(super.getName() + ".x = " + x++);
-                System.out.println(super.getName() + ".y = " + y++);
-                System.out.println(super.getName() + ".z = " + z++);
-                System.out.println(super.getName() + ".w = " + w++);
-            }
-        }
-    }
+    static byte[] obj = new byte[0];
 
     ///////////////////////////////////////////////  通过Lock保证并发有序性 ///////////////////////////////////////////////
     //定义一个Lock锁
     static ReentrantLock reentrantLock = new ReentrantLock(true);
 
-    /**
-     * <p>Title: 使用Lock保证有序性</p>
-     *
-     * @author 韩超 2018/3/13 17:02
-     */
-    static class LockThread extends Thread {
-        public LockThread(String name) {
-            super(name);
-        }
-
-        @Override
-        public void run() {
-            reentrantLock.lock();
-            System.out.println(super.getName() + ".x = " + x++);
-            System.out.println(super.getName() + ".y = " + y++);
-            System.out.println(super.getName() + ".z = " + z++);
-            System.out.println(super.getName() + ".w = " + w++);
-            reentrantLock.unlock();
-        }
-    }
-
     ///////////////////////////////////////////////  Atomic无法保证 并发有序性 ///////////////////////////////////////////////
-    static AtomicInteger atomicX = new AtomicInteger(0);
-    static AtomicInteger atomicY = new AtomicInteger(0);
-    static AtomicInteger atomicZ = new AtomicInteger(0);
-    static AtomicInteger atomicW = new AtomicInteger(0);
-
-    /**
-     * <p>Title: 通过Atomic保证有序性：失败</p>
-     *
-     * @author 韩超 2018/3/13 16:50
-     */
-    static class AtomicThread extends Thread {
-        public AtomicThread(String name) {
-            super(name);
-        }
-
-        @Override
-        public void run() {
-            System.out.println(super.getName() + ".x = " + atomicX.getAndIncrement());
-            System.out.println(super.getName() + ".y = " + atomicY.getAndIncrement());
-            System.out.println(super.getName() + ".z = " + atomicZ.getAndIncrement());
-            System.out.println(super.getName() + ".w = " + atomicW.getAndIncrement());
-        }
-    }
+    static AtomicReference<String> atomicA1 = new AtomicReference<>("A : x = x + 1");
+    static AtomicReference<String> atomicA2 = new AtomicReference<>("A : x = x - 1");
+    static AtomicReference<String> atomicB1 = new AtomicReference<>("B : x = x * 2");
+    static AtomicReference<String> atomicB2 = new AtomicReference<>("B : x = x / 2");
 
     /////////////////////////////////////////////// volatile无法保证 并发有序性 ///////////////////////////////////////////////
-    static int vx = 0;
-    static int vy = 0;
-    static int vz = 0;
-    static int vw = 0;
-
-    /**
-     * <p>Title: volatile无法保证 并发有序性 </p>
-     *
-     * @author 韩超 2018/3/13 16:50
-     */
-    static class VolatileThread extends Thread {
-        public VolatileThread(String name) {
-            super(name);
-        }
-
-        @Override
-        public void run() {
-            System.out.println(super.getName() + ".x = " + vx++);
-            System.out.println(super.getName() + ".y = " + vy++);
-            System.out.println(super.getName() + ".z = " + vz++);
-            System.out.println(super.getName() + ".w = " + vw++);
-        }
-    }
+    static volatile String volatileA1 = new String("A : x = x + 1");
+    static volatile String volatileA2 = new String("A : x = x - 1");
+    static volatile String volatileB1 = new String("B : x = x * 2");
+    static volatile String volatileB2 = new String("B : x = x / 2");
 
     /**
      * <p>Title: Java并发有序性示例</p>
@@ -151,7 +52,7 @@ public class ConcurrentOrderlyDemo {
         /**
          * 0 = 无序          no
          * 1 = synchronized ok
-         * 2 = lock         ok
+         * 2 = obj          ok
          * 3 = Atomic       no
          * 4 = volatile     no
          */
@@ -160,66 +61,103 @@ public class ConcurrentOrderlyDemo {
             case 0:
                 //不采取有序性措施,也没有发生有序性问题.....
                 LOGGER.info("不采取措施：单线程串行，视为有序；多线程交叉串行，视为无序。");
-                new Thread(()->{
-                    x = x + 1;
-                    System.out.println("x = x + 1");
-                    x = x - 1;
-                    System.out.println("x = x - 1");
+                new Thread(() -> {
+                    System.out.println(a1);
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(a2);
                 }).start();
-                new Thread(()->{
-                    x = x * 2;
-                    System.out.println("x = x * 2");
-                    x = x - 2;
-                    System.out.println("x = x / 2");
+                new Thread(() -> {
+                    System.out.println(b1);
+                    System.out.println(b2);
                 }).start();
-                Thread.sleep(100);
-                LOGGER.info("预期：x=y=2");
-                LOGGER.info("x=" + x + ",y=" + y);
-
-                Thread.sleep(1000);
-                for(int i = 0; i < 10; i++) {
-                  for(int j = 0; j < 10; j++) {
-                    LOGGER.info("j=" + j++);
-                    break;
-                  }
-                  LOGGER.info("i=" + i++);
-                }
-//                new AtomicThread("A").start();
-//                new AtomicThread("B").start();
-//                new AtomicThread("C").start();
-//                new AtomicThread("D").start();
                 break;
             case 1:
                 LOGGER.info("通过synchronized保证有序性：成功");
                 //通过synchronized保证有序性
-                new SynchronizedThread("A").start();
-                new SynchronizedThread("B").start();
-                new SynchronizedThread("C").start();
-                new SynchronizedThread("D").start();
+                new Thread(() -> {
+                    synchronized (obj) {
+                        System.out.println(a1);
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println(a2);
+                    }
+                }).start();
+                new Thread(() -> {
+                    synchronized (obj) {
+                        System.out.println(b1);
+                        System.out.println(b2);
+                    }
+                }).start();
                 break;
             case 2:
                 LOGGER.info("通过Lock保证有序性：成功");
                 //通过Lock保证有序性
-                new LockThread("A").start();
-                new LockThread("B").start();
-                new LockThread("C").start();
-                new LockThread("D").start();
+                new Thread(() -> {
+                    reentrantLock.lock();
+                    System.out.println(a1);
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(a2);
+                    reentrantLock.unlock();
+                }).start();
+                new Thread(() -> {
+                    reentrantLock.lock();
+                    System.out.println(b1);
+                    System.out.println(b2);
+                    reentrantLock.unlock();
+                }).start();
                 break;
             case 3:
                 LOGGER.info("通过Atomic保证有序性：失败。");
                 //通过Atomic保证有序性
-                new AtomicThread("A").start();
-                new AtomicThread("B").start();
-                new AtomicThread("C").start();
-                new AtomicThread("D").start();
+                new Thread(() -> {
+                    reentrantLock.lock();
+                    System.out.println(atomicA1);
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(atomicA2);
+                    reentrantLock.unlock();
+                }).start();
+                new Thread(() -> {
+                    reentrantLock.lock();
+                    System.out.println(atomicB1);
+                    System.out.println(atomicB2);
+                    reentrantLock.unlock();
+                }).start();
                 break;
             case 4:
                 LOGGER.info("通过volatile保证有序性：失败。");
                 //通过volatile保证有序性
-                new VolatileThread("A").start();
-                new VolatileThread("B").start();
-                new VolatileThread("C").start();
-                new VolatileThread("D").start();
+                new Thread(() -> {
+                    reentrantLock.lock();
+                    System.out.println(volatileA1);
+                    System.out.println(volatileA2);
+                    reentrantLock.unlock();
+                }).start();
+                new Thread(() -> {
+                    reentrantLock.lock();
+                    System.out.println(volatileB1);
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(volatileB2);
+                    reentrantLock.unlock();
+                }).start();
                 break;
             default:
                 break;

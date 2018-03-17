@@ -34,6 +34,51 @@ public class VolatileDemo {
         }
     }
 
+    /////////////////////////////////////  2.双重检查单例模式（jd1.5版本及以后）  /////////////////////////////////////
+
+    /**
+     * <p>同步延时加载-单例模式</p>
+     *
+     * @author hanchao 2018/3/17 19:14
+     **/
+    static class SynchronizedSingleton {
+        private static SynchronizedSingleton instance = null;
+
+        private SynchronizedSingleton() {
+        }
+
+        public static synchronized SynchronizedSingleton getInstance() {
+            if (instance == null) {
+                instance = new SynchronizedSingleton();
+            }
+            return instance;
+        }
+    }
+
+    /**
+     * <p>双重检测同步延迟加载--单例模式</p>
+     *
+     * @author hanchao 2018/3/17 19:10
+     **/
+    static class DoubleCheckedSingleton {
+        //注意这里是volatile的
+        private volatile static DoubleCheckedSingleton instance = null;
+
+        private DoubleCheckedSingleton() {
+        }
+
+        public static DoubleCheckedSingleton getInstance() {
+            if (instance == null) {
+                synchronized (DoubleCheckedSingleton.class) {
+                    if (instance == null) {
+                        instance = new DoubleCheckedSingleton();
+                    }
+                }
+            }
+            return instance;
+        }
+    }
+
     /**
      * <p>Title: volatile示例</p>
      *

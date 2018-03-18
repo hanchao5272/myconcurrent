@@ -1,7 +1,5 @@
 package pers.hanchao.concurrent.eg03;
 
-import org.apache.log4j.Logger;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -41,7 +39,7 @@ public class ConcurrentVisibilityDemo {
          * 3 = Lock         ok
          * 4 = Atomic       ok
          */
-        int type = 3;
+        int type = 4;
         switch (type) {
             case 0:
                 //普通情况下，多线程不能保证可见性

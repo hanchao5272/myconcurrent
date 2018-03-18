@@ -56,7 +56,7 @@ public class ConcurrentOrderlyDemo {
          * 3 = Atomic       no
          * 4 = volatile     no
          */
-        int type = 0;
+        int type = 2;
         switch (type) {
             case 0:
                 //不采取有序性措施,也没有发生有序性问题.....

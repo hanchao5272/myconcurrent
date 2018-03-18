@@ -104,10 +104,10 @@ public class ConcurrentAtomicityDemo {
      **/
     public static void main(String[] args) throws InterruptedException {
         //变量的原子操作
-        LOGGER.info("a = true包含一个操作：1.在工作期间内，将true的值赋给a。所以将常量复制给变量，是一个原子操作。");
-        LOGGER.info("a = 5包含一个操作：1.在工作期间内，将5的值赋给a。所以将常量复制给变量，是一个原子操作。");
-        LOGGER.info("a = b包含两个操作：1.去主内存读取b的值写入工作内存；2.将b的值赋值给a。所以将变量赋值给变量，不是原子操作: ");
-        LOGGER.info("a = b + 2包含三个操作：1.从主内存中读取b写入工作内存；2.在工作内存中b+2；3将b+2的值赋值给a。所以不是原子操作");
+        LOGGER.info("a = true包含一个操作：1.在Thread Stack内，将true的值赋给a。所以将本地变量赋值给基本数据类型，是一个原子操作。");
+        LOGGER.info("a = 5包含一个操作：1.在Thread Stack内，将5的值赋给a。所以将本地变量赋值给基本数据类型，是一个原子操作。");
+        LOGGER.info("a = b包含两个操作：1.去Heap读取b的值写入Thread Stack；2.将b的值赋值给a。所以将变量赋值给变量，不是原子操作: ");
+        LOGGER.info("a = b + 2包含三个操作：1.从Heap中读取b写入Thread Stack；2.在Thread Stack中b+2；3将b+2的值赋值给a。所以不是原子操作");
         LOGGER.info("a ++即a = a + 1包含三个操作。所以不是原子操作");
         LOGGER.info("综上，JMM只保证了基本的读取和赋值是原子操作。\n");
         LOGGER.info("Java提供的能够保证更大范围操作原子性的技术有：1.synchronized关键字、2.Lock接口、3.Atomic类型\n");
@@ -119,7 +119,7 @@ public class ConcurrentAtomicityDemo {
          * 2 = Lock         ok
          * 3 = Atomic       ok
          */
-        int type = 0;//类型
+        int type = 3;//类型
         int num = 50000;//自增次数
         int sleepTime = 5000;//等待计算时间
         int begin;//开始的值

@@ -61,3 +61,12 @@ java.util.concurrent.locks.ReadWriteLock接口允许一次读取多个线程，�
 |6|public void signal()|单个唤醒|唤醒一个等待线程。|
 |7|public void signalAll()|全部等待|唤醒所有等待线程。|
 
+0.lock.newCondition-获取条件：获取锁上面的条件
+1.condition.await()-持续等待：等待，直到被唤醒或被中断
+2.condition.awaitNanos(long)-限时等待(纳秒)：等待，直到被唤醒、被中断或超时
+3.condition.await(long,TimeUnit)-限时等待(自定义)：等待，直到被唤醒、被中断或超时
+4.condition.awaitUntil(deadline)-限时等待(截止时间)：等待，直到被唤醒、被中断或到达截止时间
+5.condition.awaitUninterruptibly()-不可中断的持续等待：等待，直到被唤醒
+6.condition.signal()-唤醒一个：唤醒在condition上等待的一个线程
+7.condition.signalAll()-唤醒全部：唤醒在condition上等待的全部线程
+

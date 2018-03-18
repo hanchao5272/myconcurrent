@@ -9,6 +9,7 @@ public class VolatileDemo {
     /**
      * 是否关闭
      */
+//    private static boolean shutdown = false;
     private volatile static boolean shutdown = false;
 
     /**
@@ -22,62 +23,72 @@ public class VolatileDemo {
          */
         public static void shutdown() {
             shutdown = true;
+            System.out.println("关闭了咖啡机...");
         }
 
         /**
          * 生成开发
          */
         public static void makeCoffee(String name) {
-            System.out.println("咖啡机[" + name + "]开始为客户制作咖啡...");
-            while (!shutdown) ;
-            System.out.println("咖啡机[" + name + "]已经停止工作.");
+            System.out.println("咖啡机开始为客户制作咖啡...");
+            while (!shutdown) {Thread.currentThread().yield();};
+            System.out.println("咖啡机已经停止工作,不再对外提供服务!");
         }
     }
 
-    /////////////////////////////////////  2.双重检查单例模式（jd1.5版本及以后）  /////////////////////////////////////
+    /////////////////////////////////////  2.双重检查单例模式（jd1.5版本及以后可用）  /////////////////////////////////////
 
     /**
-     * <p>同步延时加载-单例模式</p>
+     * <p>双重检测单例模式--不加volatile关键字</p>
      *
      * @author hanchao 2018/3/17 19:14
      **/
-    static class SynchronizedSingleton {
-        private static SynchronizedSingleton instance = null;
+    static class DoubleCheckSingleton {
 
-        private SynchronizedSingleton() {
-        }
+        private static DoubleCheckSingleton instance = null;
 
-        public static synchronized SynchronizedSingleton getInstance() {
-            if (instance == null) {
-                instance = new SynchronizedSingleton();
+        private DoubleCheckSingleton() {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            return instance;
-        }
-    }
-
-    /**
-     * <p>双重检测同步延迟加载--单例模式</p>
-     *
-     * @author hanchao 2018/3/17 19:10
-     **/
-    static class DoubleCheckedSingleton {
-        //注意这里是volatile的
-        private volatile static DoubleCheckedSingleton instance = null;
-
-        private DoubleCheckedSingleton() {
         }
 
-        public static DoubleCheckedSingleton getInstance() {
+        public static synchronized DoubleCheckSingleton getInstance() {
             if (instance == null) {
-                synchronized (DoubleCheckedSingleton.class) {
+                synchronized (DoubleCheckSingleton.class) {
                     if (instance == null) {
-                        instance = new DoubleCheckedSingleton();
+                        instance = new DoubleCheckSingleton();
                     }
                 }
             }
             return instance;
         }
     }
+
+    /**
+     * <p>双重检测单例模式--加volatile关键字</p>
+     *
+     * @author hanchao 2018/3/17 19:10
+     **/
+    static class DoubleCheckedVolatileSingleton {
+        //注意这里是volatile的
+        private volatile static DoubleCheckedVolatileSingleton instance = null;
+
+        public static DoubleCheckedVolatileSingleton getInstance() {
+            if (instance == null) {
+                synchronized (DoubleCheckedVolatileSingleton.class) {
+                    if (instance == null) {
+                        instance = new DoubleCheckedVolatileSingleton();
+                    }
+                }
+            }
+            return instance;
+        }
+    }
+
+    static DoubleCheckSingleton singleton = null;
 
     /**
      * <p>Title: volatile示例</p>
@@ -87,15 +98,23 @@ public class VolatileDemo {
     public static void main(String[] args) throws InterruptedException {
         /////////////////////////////////////  1.一次性状态标志使用  /////////////////////////////////////
         //开始制作咖啡
-        for (int i = 0; i < 3; i++) {
-            new Thread(() -> {
-                CoffeeMaker.makeCoffee(Thread.currentThread().getName());
-            }).start();
-        }
+        new Thread(() -> {
+            CoffeeMaker.makeCoffee(Thread.currentThread().getName());
+        }).start();
         Thread.sleep(100);
         //关掉咖啡机
         new Thread(() -> {
             CoffeeMaker.shutdown();
         }).start();
+
+
+//        new Thread(() -> {
+//            singleton = DoubleCheckSingleton.getInstance();
+//        }).start();
+//        new Thread(() -> {
+//            while (null == singleton){Thread.currentThread().yield();}
+//            singleton.toString();
+//        }).start();
+
     }
 }

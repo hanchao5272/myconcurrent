@@ -9,7 +9,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * <p>Lock接口-Condition学习</p>
+ * <p>Lock接口-Condition学习-可中断锁、可定时锁</p>
  * @author hanchao 2018/3/18 14:45
  **/
 public class ConditionDemo {

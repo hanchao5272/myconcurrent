@@ -36,18 +36,17 @@ http://www.cnblogs.com/dolphin0520/p/3923167.html
 5.lock.unlock():释放锁，一般放在finally块中
 6.lock.newCondition():获取条件对象，后续代码再进行学习
 
-## ReentrantLock 可重入锁
-ReentrantLock是唯一实现了Lock接口的类，并且ReentrantLock提供了更多的方法。
+## ReentrantReadWriteLock 读写锁
 java.util.concurrent.locks.ReadWriteLock接口允许一次读取多个线程，但一次只能写入一个线程。
 
-读锁 - 如果没有线程锁定ReadWriteLock进行写入，则多线程可以访问读锁。
-写锁 - 如果没有线程正在读或写，那么一个线程可以访问写锁。
-
-写读、读写、写写互斥，读读不互斥。
-
-### ReentrantLock的方法
+ReentrantReadWriteLock的方法
 1	public Lock readLock()	返回用于读的锁。
 2	public Lock writeLock()	返回用于写的锁。
+
+0 写写互斥
+1 写读互斥
+2 读写互斥
+3 读读共享
 
 ## Condition接口
 

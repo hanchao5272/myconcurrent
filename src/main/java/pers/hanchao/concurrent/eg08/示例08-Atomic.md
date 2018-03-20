@@ -15,21 +15,21 @@
 
 Atomic
 
-2.字段更新器
-AtomicLongFieldUpdater
-AtomicIntegerFieldUpdater
-AtomicReferenceFieldUpdater
-
-3.原子类型数组
+2.原子类型数组
 AtomicLongArray
 AtomicIntegerArray
 AtomicReferenceArray
+
+3.字段更新器
+AtomicLongFieldUpdater
+AtomicIntegerFieldUpdater
+AtomicReferenceFieldUpdater
 
 4.带版本号的原子引用类型（解决ABA问题）
 AtomicStampedReference
 AtomicMarkableReference
 
-5.原子累加器
+5.原子累加器(jdk1.8)
 DoubleAccumulator
 DoubleAdder
 LongAccumulator

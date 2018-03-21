@@ -1,5 +1,6 @@
 package pers.hanchao.concurrent.eg08;
 
+import java.security.acl.LastOwnerException;
 import java.util.concurrent.atomic.AtomicMarkableReference;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicStampedReference;
@@ -77,6 +78,40 @@ public class AtomicStampedDemo {
             stampedRef.compareAndSet("B", "A", stampedRef.getStamp(), stampedRef.getStamp() + 1);
             System.out.println(" -- > A" + "-" + stampedRef.getStamp());
         }).start();
+
+
+        //////////////////////////////////////// 方法实例 ////////////////////////////////////////
+        Thread.sleep(1000);
+        //AtomicStampedReference的方法汇总：
+        System.out.println("\n=========AtomicStampedReference的方法汇总：");
+        //构造方法：AtomicStampedReference<>(V initialRef, int initialStamp)
+        System.out.println("构造方法：AtomicStampedReference<>(V initialRef, int initialStamp)");
+        AtomicStampedReference<String > stampedReference = new AtomicStampedReference<>("David",1);
+
+        //getStamp和getReference：获取版本戳和引用对象
+        System.out.println("\ngetReference():获取引用对象的值----" + stampedReference.getReference());
+        System.out.println("getStamp():获取引用对象的值的版本戳----" + stampedReference.getStamp());
+
+        //set(V newReference, int newStamp):无条件的重设引用和版本戳的值
+        stampedReference.set("Joke",0);
+        System.out.println("\nset(V newReference, int newStamp):无条件的重设引用和版本戳的值---[reference:"
+                + stampedReference.getReference() + ",stamp:" + stampedReference.getStamp() + "]");
+
+        //attemptStamp(V expectedReference, int newStamp)
+        stampedReference.attemptStamp("Joke",11);
+        System.out.println("\nattemptStamp(V expectedReference, int newStamp):如果引用为期望值，则重设版本戳---[reference:"
+                + stampedReference.getReference() + ",stamp:" + stampedReference.getStamp() + "]");
+
+        //compareAndSet(V expectedReference,V newReference,int expectedStamp,int newStamp)
+        System.out.println("\ncompareAndSet(V expectedReference,V newReference,int expectedStamp,int newStamp):" +
+                "\n如果引用为期望值且版本戳正确，则赋新值并修改时间戳:");
+        System.out.println("第一次：" + stampedReference.compareAndSet("Joke","Tom",11,12));
+        System.out.println("第二次：" + stampedReference.compareAndSet("Tom","Grey",11,12));
+        System.out.println("weakCompareAndSet不再赘述");
+
+        //get(int[] stampHolder):通过版本戳获取引用当前值
+        System.out.println("\nget(int[] stampHolder):通过版本戳获取引用当前值---" + stampedReference.get(new int[1]));
+        System.out.println("get(int[] stampHolder):stampHolder[0]持有版本戳(说实话...没看明白)");
 
         //AtomicMarkableReference与AtomicStampedReference的作用类似
         //区别：AtomicStampedReference以版本戳标记变量

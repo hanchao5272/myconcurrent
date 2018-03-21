@@ -55,8 +55,16 @@ ABA问题：
 3.线程1判断此时变量X的值任然为expect A，可以更新
 4.其实变量X的值已经发生了变化
 
-        //区别：AtomicStampedReference以版本戳标记变量
-        //区别：AtomicMarkableReference以true和false标记变量
+//区别：AtomicStampedReference以版本戳标记变量
+//区别：AtomicMarkableReference以true和false标记变量
+
+- 构造方法：AtomicStampedReference<>(V initialRef, int initialStamp)
+- getStamp和getReference：获取版本戳和引用对象
+- set(V newReference, int newStamp):无条件的重设引用和版本戳的值
+- attemptStamp(V expectedReference, int newStamp):如果引用为期望值，则重设版本戳
+- compareAndSet(V expectedReference,V newReference,int expectedStamp,int newStamp):
+    如果引用为期望值且版本戳正确，则赋新值并修改时间戳
+- get(int[] stampHolder):通过版本戳获取引用当前值
         
 https://www.cnblogs.com/java20130722/p/3206742.html
 

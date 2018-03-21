@@ -74,4 +74,13 @@ DoubleAdder
 LongAccumulator
 LongAdder
 
+1.LongAdder应用热点分离思想，划分数组，通过hash算法进行计算，最终求和
+2.LongAdder减小了锁力度，提高了吞吐量；应用数组，增加空间消耗
+3.LongAdder和LongAccumulator是AtomicLong的扩展
+4.DoubleAdder和DoubleAccumulator是AtomicDouble的扩展
+5.在低并发环境下性能相似；在高并发环境下---吞吐量增加，但是空间消耗增大
+6.多用于收集统计数据，而非细粒度计算
+7.方法:increment()/decrement()/add()/sum()/reset()/sumAndReset()
+8.高并发测试：低并发数，吞吐量差距不大，高并发数，吞吐量差距拉大。
+
 

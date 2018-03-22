@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>java.util.concurrent.atomic.AtomicBoolean</OriginalElement>
+  <nodes>
+    <node x="763.0" y="185.0">java.util.concurrent.atomic.AtomicStampedReference</node>
+    <node x="1496.0" y="110.0">java.util.concurrent.atomic.LongAdder</node>
+    <node x="266.0" y="185.0">java.util.concurrent.atomic.AtomicIntegerFieldUpdater</node>
+    <node x="0.0" y="185.0">java.util.concurrent.atomic.AtomicReferenceFieldUpdater</node>
+    <node x="1629.0" y="110.0">java.util.concurrent.atomic.AtomicBoolean</node>
+    <node x="1063.0" y="110.0">java.util.concurrent.atomic.DoubleAdder</node>
+    <node x="1006.0" y="185.0">java.util.concurrent.atomic.AtomicLongFieldUpdater</node>
+    <node x="516.0" y="185.0">java.util.concurrent.atomic.AtomicMarkableReference</node>
+    <node x="534.0" y="110.0">java.util.concurrent.atomic.AtomicReference</node>
+    <node x="337.0" y="110.0">java.util.concurrent.atomic.AtomicReferenceArray</node>
+    <node x="905.5" y="0.0">java.io.Serializable</node>
+    <node x="1209.0" y="110.0">java.util.concurrent.atomic.AtomicLong</node>
+    <node x="168.0" y="110.0">java.util.concurrent.atomic.LongAccumulator</node>
+    <node x="1346.0" y="110.0">java.util.concurrent.atomic.AtomicInteger</node>
+    <node x="700.0" y="110.0">java.util.concurrent.atomic.DoubleAccumulator</node>
+    <node x="882.0" y="110.0">java.util.concurrent.atomic.AtomicIntegerArray</node>
+    <node x="0.0" y="110.0">java.util.concurrent.atomic.AtomicLongArray</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="java.util.concurrent.atomic.AtomicReference" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="607.0" y="80.0" />
+      <point x="941.7727272727273" y="80.0" />
+      <point x="-20.72727272727272" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.AtomicInteger" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="1411.0" y="70.0" />
+      <point x="993.5909090909091" y="70.0" />
+      <point x="31.09090909090908" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.AtomicBoolean" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="1697.0" y="50.0" />
+      <point x="1014.3181818181818" y="50.0" />
+      <point x="51.8181818181818" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.DoubleAdder" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="1126.0" y="90.0" />
+      <point x="972.8636363636364" y="90.0" />
+      <point x="10.36363636363636" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.AtomicIntegerArray" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.LongAdder" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="1552.5" y="60.0" />
+      <point x="1003.9545454545455" y="60.0" />
+      <point x="41.45454545454544" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.LongAccumulator" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="242.5" y="60.0" />
+      <point x="921.0454545454545" y="60.0" />
+      <point x="-41.45454545454545" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.AtomicReferenceArray" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="425.5" y="70.0" />
+      <point x="931.4090909090909" y="70.0" />
+      <point x="-31.090909090909086" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.AtomicLongArray" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="74.0" y="50.0" />
+      <point x="910.6818181818182" y="50.0" />
+      <point x="-51.81818181818181" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.DoubleAccumulator" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="781.0" y="90.0" />
+      <point x="952.1363636363636" y="90.0" />
+      <point x="-10.36363636363636" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.atomic.AtomicLong" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="1267.5" y="80.0" />
+      <point x="983.2272727272727" y="80.0" />
+      <point x="20.72727272727272" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="1134.5" y="55.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

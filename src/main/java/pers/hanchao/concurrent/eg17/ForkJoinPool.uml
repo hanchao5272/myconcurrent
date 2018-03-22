@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>java.util.concurrent.ForkJoinPool</OriginalElement>
+  <nodes>
+    <node x="0.0" y="160.0">java.util.concurrent.AbstractExecutorService</node>
+    <node x="227.0" y="315.0">java.util.concurrent.ForkJoinTask</node>
+    <node x="44.50000000000006" y="0.0">java.util.concurrent.Executor</node>
+    <node x="116.75" y="240.0">java.util.concurrent.ForkJoinPool</node>
+    <node x="0.0" y="315.0">java.util.concurrent.ForkJoinWorkerThread</node>
+    <node x="207.0" y="160.0">sun.misc.Contended</node>
+    <node x="24.00000000000003" y="80.0">java.util.concurrent.ExecutorService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="java.util.concurrent.AbstractExecutorService" target="java.util.concurrent.ExecutorService">
+      <point x="2.8421709430404007E-14" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.ForkJoinPool" target="java.util.concurrent.AbstractExecutorService">
+      <point x="-30.75" y="-15.0" />
+      <point x="147.5" y="215.0" />
+      <point x="93.5" y="215.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.ForkJoinPool" target="sun.misc.Contended">
+      <point x="30.75" y="-15.0" />
+      <point x="209.0" y="215.0" />
+      <point x="263.0" y="215.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.ExecutorService" target="java.util.concurrent.Executor">
+      <point x="2.8421709430404007E-14" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="342.5" y="355.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

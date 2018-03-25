@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>akka.actor.ActorRef</OriginalElement>
+  <nodes>
+    <node x="148.00000000000006" y="160.0">akka.actor.ActorRef</node>
+    <node x="140.00000000000003" y="80.0">scala.Serializable</node>
+    <node x="245.50000000000003" y="0.0">scala.reflect.ScalaSignature</node>
+    <node x="0.0" y="80.0">java.lang.Comparable</node>
+    <node x="111.50000000000003" y="0.0">java.io.Serializable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="scala.Serializable" target="java.io.Serializable">
+      <point x="-28.5" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="scala.Serializable" target="scala.reflect.ScalaSignature">
+      <point x="28.5" y="-15.0" />
+      <point x="225.50000000000003" y="55.0" />
+      <point x="278.75" y="55.0" />
+      <point x="-33.25" y="15.0" />
+    </edge>
+    <edge source="akka.actor.ActorRef" target="scala.reflect.ScalaSignature">
+      <point x="32.66666666666666" y="-15.0" />
+      <point x="229.6666666666667" y="135.0" />
+      <point x="345.25" y="135.0" />
+      <point x="33.25" y="15.0" />
+    </edge>
+    <edge source="akka.actor.ActorRef" target="java.lang.Comparable">
+      <point x="-32.666666666666686" y="-15.0" />
+      <point x="164.33333333333337" y="135.0" />
+      <point x="60.0" y="135.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="akka.actor.ActorRef" target="scala.Serializable">
+      <point x="-2.8421709430404007E-14" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="189.5" y="15.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

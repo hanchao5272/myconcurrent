@@ -21,8 +21,40 @@
         <junit.version>4.12</junit.version>
         <!-- akka-actor -->
         <akka-actor.version>2.5.11</akka-actor.version>
+        <!-- MySql -->
+        <mysql.version>5.1.40</mysql.version>
+        <servlet-api.version>3.1.0</servlet-api.version>
+        <jsp-api.version>2.0</jsp-api.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
+
     <dependencies>
+        <!--Cannot find the class file for javax.servlet.ServletContext.-->
+        <!-- servlet相关jar -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
+        <!-- MySql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor -->
         <dependency>
             <groupId>com.typesafe.akka</groupId>

@@ -633,7 +633,110 @@ public class SourceCodeRead {
 
          @since 1.5
          @author Doug Lea
-         /
-        //ScheduledThreadPoolExecutor
+         */
+        // ScheduledThreadPoolExecutor
+        /**
+         A {@link ThreadPoolExecutor} that can additionally schedule  commands to run after a given delay, or to execute  periodically.
+         This class is preferable to {@link java.util.Timer}  when multiple worker threads are needed, or when the additional  flexibility or capabilities of {@link ThreadPoolExecutor} (which  this class extends) are required.
+
+         {ScheduledThreadPoolExecutor}是一个{ThreadPoolExecutor}，他能够额外的调度任务在一个给定的延时之后运行或则周期性的运行。
+         当需要多个工作线程或者当需要额外的灵活性和{ThreadPoolExecutor}的额外能力时，这个类比{java.util.Timer}更加合适。
+
+         <p>Delayed tasks execute no sooner than they are enabled, but  without any real-time guarantees about when, after they are  enabled, they will commence.
+         Tasks scheduled for exactly the same  execution time are enabled in first-in-first-out (FIFO) order of  submission.
+
+         {延时任务}的执行肯定发生于他们启动之后，但是如果没有任何实际的时间确定何时执行，当启动时，他们就会执行。
+         任务执行的时间与他们提交的顺序保持一致，也就是所谓的{FIFO(先进先出，first-in-first-out)}。
+
+         <p>When a submitted task is cancelled before it is run, execution  is suppressed.
+         By default, such a cancelled task is not  automatically removed from the work queue until its delay  elapses.
+         While this enables further inspection and monitoring, it  may also cause unbounded retention of cancelled tasks.
+         To avoid  this, set {@link #setRemoveOnCancelPolicy} to {@code true}, which  causes tasks to be immediately removed from the work queue at  time of cancellation.
+
+         当一个提交的任务在运行前被取消了，则它的执行将被禁止。
+         默认情况下，这种取消了的任务并不会自动的从工作队列中移除，除非它的延时时间过期。
+         虽然这么做可以保证进一步的检查和监视，但是也可能会导致取消任务的无限保留。
+         为了避免这么做，可以调用{setRemoveOnCancelPolicy(true)}，此方法会使得任务一旦被取消将立即被移除。
+
+         <p>Successive executions of a task scheduled via  {@code scheduleAtFixedRate} or  {@code scheduleWithFixedDelay} do not overlap.
+         While different  executions may be performed by different threads, the effects of  prior executions <a  href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>  those of subsequent ones.
+
+         通过{scheduleAtFixedRate方法}或者{scheduleWithFixedDelay方法}可以连续执行一个任务，而且两种方式并不相交。
+         当不同的任务可能会被不同的线程执行，那些优先执行的操作 hb 那些随后执行的操作。
+         当不同的任务可能会被不同的线程执行，那些优先执行的操作结果 对 那些随后执行的操作结果 可见。
+
+         <p>While this class inherits from {@link ThreadPoolExecutor}, a few  of the inherited tuning methods are not useful for it.
+         In  particular, because it acts as a fixed-sized pool using  {@code corePoolSize} threads and an unbounded queue, adjustments  to {@code maximumPoolSize} have no useful effect.
+         Additionally, it  is almost never a good idea to set {@code corePoolSize} to zero or  use {@code allowCoreThreadTimeOut} because this may leave the pool  without threads to handle tasks once they become eligible to run.
+
+         虽然{ScheduledThreadPoolExecutor}继承自{ThreadPoolExecutor}，但是有一些继承的方法并不适用于它。
+         特别要注意，作为一个固定大小的线程池，它使用核心池大小的线程并且使用一个无界的队列，这导致{maximumPoolSize}这个参数并没有实际作用。
+         此外，千万不要讲{corePoolSize}设置为0，或者使用{allowCoreThreadTimeOut}。因为这么做会导致一旦线程有资格去运行，他们会留下一个没有线程处理任务的线程池。
+
+         <p><b>Extension notes:</b>
+         This class overrides the  {@link ThreadPoolExecutor#execute(Runnable) execute} and  {@link AbstractExecutorService#submit(Runnable) submit}  methods to generate internal {@link ScheduledFuture} objects to  control per-task delays and scheduling.
+         To preserve  functionality, any further overrides of these methods in  subclasses must invoke superclass versions, which effectively  disables additional task customization.
+         However, this class  provides alternative protected extension method  {@code decorateTask} (one version each for {@code Runnable} and  {@code Callable}) that can be used to customize the concrete task  types used to execute commands entered via {@code execute},  {@code submit}, {@code schedule}, {@code scheduleAtFixedRate},  and {@code scheduleWithFixedDelay}.
+         By default, a  {@code ScheduledThreadPoolExecutor} uses a task type extending  {@link FutureTask}.
+         However, this may be modified or replaced using  subclasses of the form:
+
+         额外注释：
+
+         这个类重写了{ThreadPoolExecutor#execute(Runnable)方法}和{AbstractExecutorService#submit(Runnable)方法}，以此来生成内部{ScheduledFuture}对象，用来控制每个任务的延时和调度。
+         为了保护这个功能，在子类中，这些方法的重写方法都必须调用父类的版本，从而有效的禁用其他类型的任务定制。
+         但是，这个类也提供了可以替代的的受保护的扩展方法{decorateTask}。{decorateTask}可以被用来自定义具体的任务类型。这些自定义的任务类型通过{execute()方法}、{submit()方法}、{schedule()方法}、{(scheduleAtFixedRate)方法}和{(scheduleWithFixedDelay)方法}来执行命令。
+
+         默认情况下，{ScheduledThreadPoolExecutor}使用{FutureTask}的任务类型。
+         然而，这种默认配置可以通过子类的形式进行修改和替换。
+
+
+
+         <pre> {@code
+        public class CustomScheduledExecutor extends ScheduledThreadPoolExecutor {
+
+        static class CustomTask<V> implements RunnableScheduledFuture<V> { ...
+        }
+
+        protected <V> RunnableScheduledFuture<V> decorateTask(
+        Runnable r, RunnableScheduledFuture<V> task) {
+        return new CustomTask<V>(r, task);
+        }
+
+        protected <V> RunnableScheduledFuture<V> decorateTask(
+        Callable<V> c, RunnableScheduledFuture<V> task) {
+        return new CustomTask<V>(c, task);
+        }
+        // ...
+        add constructors, etc.
+        }}</pre>
+
+         @since 1.5
+         @author Doug Lea
+         */
+
+        //Executors
+        /**
+         Factory and utility methods for {Executor}, { ExecutorService}, {ScheduledExecutorService}, { ThreadFactory}, and {Callable} classes defined in this  package.
+         This class supports the following kinds of methods:
+
+         <ul>
+         <li> Methods that create and return an {ExecutorService} set up with commonly useful configuration settings.
+         <li> Methods that create and return a {ScheduledExecutorService} set up with commonly useful configuration settings.
+         <li> Methods that create and return a "wrapped" ExecutorService, that disables reconfiguration by making implementation-specific methods inaccessible.
+         <li> Methods that create and return a {ThreadFactory} that sets newly created threads to a known state.
+         <li> Methods that create and return a {Callable} out of other closure-like forms, so they can be used in execution methods requiring {@code Callable}.
+         </ul>
+
+         这个类定义了供{Executor}、{ExecutorService}、{ScheduledExecutorService}、{ ThreadFactory}和{Callable}这些接口和类使用的工厂方法和工具方法。
+
+         - 提供了方法，用于创建和返回一个用通常有用的设置配置好的{ExecutorService}对象。
+         - 提供了方法，用于创建和返回一个用通常有用的设置配置好的{ScheduledExecutorService}对象。
+         - 提供了方法，用于创建和返回一个包装好的{ExecutorService}对象。通过使可以实现的方法无法访问，这个{ExecutorService}对象无法重构。
+         - 提供了方法，用于创建和返回一个{ThreadFactory}对象。这个{ThreadFactory}对象会将新创建的线程设置为已知状态。
+         - 提供了方法，用于创建和返回一个{Callable}对象。这个{Callable}对象不同于其他闭包形式，所以他们被需要{Callable}参数的执行方法中使用。
+
+         @since 1.5
+         @author Doug Lea
+         */
     }
 }

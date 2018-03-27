@@ -33,12 +33,12 @@ public class AtomicBasicDemo {
         AtomicReference<String> aStr = new AtomicReference<>("Hello World!");
 
         //通用操作
-        LOGGER.info("===========原子类型的通用操作：get()/get()/getAndSet()/compareAndSet()/weakCompareAndSet()");
+        LOGGER.info("===========原子类型的通用操作：get()/set()/getAndSet()/compareAndSet()/weakCompareAndSet()");
         //获取当前的值：volatile保证可见性-基本类型取值本身是原子性的
-        LOGGER.info("get()：获取当前的值(可见性)----now = " + aBoolean.get());
-        LOGGER.info("get()：获取当前的值(可见性)----now = " + aInt.get());
-        LOGGER.info("get()：获取当前的值(可见性)----now = " + aLong.get());
-        LOGGER.info("get()：获取当前的值(可见性)----now = " + aStr.get());
+        LOGGER.info("get()：设置当前的值(可见性)----now = " + aBoolean.get());
+        LOGGER.info("get()：设置当前的值(可见性)----now = " + aInt.get());
+        LOGGER.info("get()：设置当前的值(可见性)----now = " + aLong.get());
+        LOGGER.info("get()：设置当前的值(可见性)----now = " + aStr.get());
         LOGGER.info("---------------------------------------------------------");
         //普通赋值：volatile保证可见性-基本类型赋值本身是原子性的
         aBoolean.set(false);

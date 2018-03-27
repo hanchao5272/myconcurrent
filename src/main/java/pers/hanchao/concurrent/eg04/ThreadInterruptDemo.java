@@ -47,21 +47,21 @@ public class ThreadInterruptDemo {
 //            }
 //            LOGGER.info("线程[" + Thread.currentThread().getName() + "] 停止运行");
 //        }).start();
-//
-//        //interrupt()、isInterrupted()可以结合，控制线程中的while(无阻塞状态)循环
-//        Thread.sleep(200);
-//        System.out.println();
-//        LOGGER.info("在无阻塞状态(sleep/wait/joni)的while循环中应用interrupt()和isInterrupted()");
-//        Thread thread1 = new Thread(() -> {
-//            //如果当前线程没被中断，则一直进行
-//            while (!Thread.currentThread().isInterrupted()) {
-//                LOGGER.info("线程[" + Thread.currentThread().getName() + "]正在运行...");
-//            }
-//            LOGGER.info("线程[" + Thread.currentThread().getName() + "]停止运行");
-//        });
-//        thread1.start();
-//        Thread.sleep(10);
-//        thread1.interrupt();
+
+        //interrupt()、isInterrupted()可以结合，控制线程中的while(无阻塞状态)循环
+        Thread.sleep(200);
+        System.out.println();
+        LOGGER.info("在无阻塞状态(sleep/wait/joni)的while循环中应用interrupt()和isInterrupted()");
+        Thread thread1 = new Thread(() -> {
+            //如果当前线程没被中断，则一直进行
+            while (!Thread.currentThread().isInterrupted()) {
+                LOGGER.info("线程[" + Thread.currentThread().getName() + "]正在运行...");
+            }
+            LOGGER.info("线程[" + Thread.currentThread().getName() + "]停止运行");
+        });
+        thread1.start();
+        Thread.sleep(10);
+        thread1.interrupt();
 
 //        //中断有阻塞状态(sleep/wait/joni)的线程，会产生一个InterruptedException异常，并将中断标志位清除，所以不会结束线程
 //        //所以在有阻塞状态(sleep/wait/joni)的while循环，只是应用interrupt()和isInterrupted()的结合，虽然会报错，但并不能停止线程

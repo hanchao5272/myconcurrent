@@ -20,7 +20,7 @@ public class AtomicFieldUpdater {
      * @author hanchao 2018/3/20 22:35
      **/
     static class MyVolatileType {
-        //键
+        //自定义-键
         //必须是volatile；必须是long，不能是Long
         //用AtomicLongFieldUpdater处理
         //如果是Long的，则用AtomicReferenceFieldUpdater
@@ -29,7 +29,7 @@ public class AtomicFieldUpdater {
         //字段更新器需要与字段的访问类型一致
         private static final AtomicIntegerFieldUpdater integerFieldUpdater =
                 AtomicIntegerFieldUpdater.newUpdater(MyVolatileType.class, "index");
-        //值
+        //自定义-值
         //必须是volatile
         //需用AtomicReferenceFieldUpdater处理
         private volatile String value;
@@ -37,7 +37,7 @@ public class AtomicFieldUpdater {
         //字段更新器需要与字段的访问类型一致
         private static final AtomicLongFieldUpdater longFieldUpdater = AtomicLongFieldUpdater.newUpdater(MyVolatileType.class, "time");
 
-        //创建时间
+        //自定义-创建时间
         //必须是volatile；必须是int，不能是Integer
         //用AtomicIntegerFieldUpdater处理
         //如果是Integer的，则用AtomicReferenceFieldUpdater
@@ -119,9 +119,9 @@ public class AtomicFieldUpdater {
     public static void main(String[] args) {
         MyVolatileType myArray = new MyVolatileType(1, "David", System.currentTimeMillis());
         LOGGER.info("原始值：" + myArray.toString() + "\n");
-        //字段更新器的通用方法
-        myArray.fieldUpdaterCommonMethodDemo();
-        LOGGER.info("当前值：" + myArray.toString() + "\n");
+//        //字段更新器的通用方法
+//        myArray.fieldUpdaterCommonMethodDemo();
+//        LOGGER.info("当前值：" + myArray.toString() + "\n");
         //int/long字段更新器的独有方法
         myArray.fieldUpdaterSpecialMethodDemo();
         LOGGER.info("当前值：" + myArray.toString() + "\n");

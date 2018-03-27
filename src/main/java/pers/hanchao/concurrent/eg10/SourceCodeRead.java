@@ -6,12 +6,13 @@ import java.util.concurrent.*;
  * 源代码翻译
  * Created by 韩超 on 2018/3/26.
  */
-public class Demo {
+public class SourceCodeRead {
     /**
      * <p>Title: </p>
+     *
      * @author 韩超 2018/3/26 9:34
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         //Future
         /**
@@ -131,107 +132,5 @@ public class Demo {
          @author Doug Lea
          @param <V> The result type returned by this FutureTask's {@code get} methods
          */
-
-        //Executor
-        /**
-         *  An object that executes submitted {@link Runnable} tasks.
-         This interface provides a way of decoupling task submission from the mechanics of how each task will be run, including details of thread use, scheduling, etc.
-         An {@code Executor} is normally used instead of explicitly creating threads.
-         For example, rather than invoking {@code new Thread(new(RunnableTask())).start()} for each of a set of tasks, you might use:
-
-         {Executor接口}表示一个对象，这个对象可以执行提交了的{Runnable接口}类型的任务。
-         {Executor接口}提供了一种将任务提交与任务在线程中执行、调度和使用等一系列机制分离出来的方式。
-
-         例如，相较于使用 {new Thread(new(RunnableTask())).start()}去
-
-         <pre>
-         Executor executor = <em>anExecutor</em>;
-         executor.execute(new RunnableTask1());
-         executor.execute(new RunnableTask2());
-         ...
-         </pre>
-
-         However, the {@code Executor} interface does not strictly require that execution be asynchronous.
-         In the simplest case, an executor can run the submitted task immediately in the caller's
-         thread:
-
-         <pre> {@code
-        class DirectExecutor implements Executor {
-        public void execute(Runnable r) {
-        r.run();
-        }
-        }}</pre>
-
-         More typically, tasks are executed in some thread other than the caller's thread.
-         The executor below spawns a new thread for each task.
-
-         <pre> {@code
-        class ThreadPerTaskExecutor implements Executor {
-        public void execute(Runnable r) {
-        new Thread(r).start();
-        }
-        }}</pre>
-
-         Many {@code Executor} implementations impose some sort of limitation on how and when tasks are scheduled.
-         The executor below serializes the submission of tasks to a second executor, illustrating a composite executor.
-
-         <pre> {@code
-        class SerialExecutor implements Executor {
-        final Queue<Runnable> tasks = new ArrayDeque<Runnable>();
-        final Executor executor;
-        Runnable active;
-
-        SerialExecutor(Executor executor) {
-        this.executor = executor;
-        }
-
-        public synchronized void execute(final Runnable r) {
-        tasks.offer(new Runnable() {
-        public void run() {
-        try {
-        r.run();
-        } finally {
-        scheduleNext();
-        }
-        }
-        });
-        if (active == null) {
-        scheduleNext();
-        }
-        }
-
-        protected synchronized void scheduleNext() {
-        if ((active = tasks.poll()) != null) {
-        executor.execute(active);
-        }
-        }
-        }}</pre>
-
-         The {@code Executor} implementations provided in this package implement {@link ExecutorService}, which is a more extensive interface.
-         The {@link ThreadPoolExecutor} class provides an extensible thread pool implementation.
-         The {@link Executors} class provides convenient factory methods for these Executors.
-
-         <p>Memory consistency effects: Actions in a thread prior to submitting a {@code Runnable} object to an {@code Executor} <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a> its execution begins, perhaps in another thread.
-
-         @since 1.5
-         @author Doug Lea
-
-         public interface Executor {
-
-
-         Executes the given command at some time in the future.
-         The command may execute in a new thread, in a pooled thread, or in the calling thread, at the discretion of the {@code Executor} implementation.
-
-         @param command the runnable task
-         @throws RejectedExecutionException if this task cannot be
-         accepted for execution
-         @throws NullPointerException if command is null
-
-         void execute(Runnable command);
-         }
-         */
-        ExecutorService
-
-        Executors
     }
 }

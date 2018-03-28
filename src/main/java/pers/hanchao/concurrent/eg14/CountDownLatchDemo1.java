@@ -8,11 +8,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * <p>倒计时门闩-倒计时闭锁-学习实例</p>
+ * <p>倒计时门闩-倒计时闭锁-学习实例-示例1-跑步比赛</p>
  *
  * @author hanchao 2018/3/28 20:32
  **/
-public class CountDownLatchDemo {
+public class CountDownLatchDemo1 {
     /**
      * 用法：
      * - 当count=1时，作为一个开关。所有调用它的wait()方法的线程都在等待， 直到开关打开。        限定开关

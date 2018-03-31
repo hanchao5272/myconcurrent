@@ -37,21 +37,20 @@ public class CountDownLatchBasic {
         LOGGER.info("通过countDown()进行一次倒计时，即count减1：" + countDownLatch.getCount());
         LOGGER.info("count最小为0");
 
-        //await()/await() 与countDown()
+        //await()/await(timeout,TimeUnit) 与countDown()
         /**
          *   线程          等待方法               终止原因
          * ------------------------------------------------
-         * thread-0     await()                 count=1
+         * thread-0     await()                 count=0
          * thread-1     await()                 interrupted
          * ------------------------------------------------
-         * thread-2     await(long,TimeUnit)    timeout
-         * thread-3     await(long,TimeUnit)    interrupted
-         * thread-4     await(long,TimeUnit)    count=1
+         * thread-2     await(timeout,TimeUnit)    timeout
+         * thread-3     await(timeout,TimeUnit)    interrupted
+         * thread-4     await(timeout,TimeUnit)    count=0
          */
         System.out.println();
         CountDownLatch latch = new CountDownLatch(num);
         //await() 直至latch 的count = 0
-        LOGGER.info("通过await()等待至latch的count=0，或者被中断。");
         new Thread(() -> {
             LOGGER.info(Thread.currentThread().getName() + "(await0) is awaiting....");
             try {
@@ -141,7 +140,7 @@ public class CountDownLatchBasic {
         System.out.println();
         //进行自减，直到count=0
         while (latch.getCount() > 0) {
-            LOGGER.info(Thread.currentThread().getName() + " latch.countDown , count = " + latch.getCount());
+            //LOGGER.info(Thread.currentThread().getName() + " latch.countDown , count = " + latch.getCount());
             latch.countDown();
         }
     }

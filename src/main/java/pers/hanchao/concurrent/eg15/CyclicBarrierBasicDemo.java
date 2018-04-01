@@ -31,7 +31,7 @@ public class CyclicBarrierBasicDemo {
          * 0 展示getParties()/await()/getNumberWaiting()/循环屏障的普通流程/屏障打开之后再次等待--循环的意义
          * 1 reset():将CyclicBarrier回归初始状态，如果有正在等待的线程，则会抛出BrokenBarrierException异常
          * 2 await() 等待，除非：1.屏障打开;2.本线程被interrupt;3.其他等待线程被interrupted;4.其他等待线程timeout;5.其他线程调用reset()
-         *   await(long,TimeUnit) 等待，除非：1.屏障打开(返回true);2.本线程被interrupt;3.本线程timeout;4.其他等待线程被interrupted;5.其他等待线程timeout;6.其他线程调用reset()
+         *   await(timeout,TimeUnit) 等待，除非：1.屏障打开(返回true);2.本线程被interrupt;3.本线程timeout;4.其他等待线程被interrupted;5.其他等待线程timeout;6.其他线程调用reset()
          *   isBroken()：默认为true，除非：1.等待线程被interrupt;2.等待线程timeout。如果，其他线程调用reset()，将其重置为true
          * 3 CyclicBarrier(int parties, Runnable barrierAction)：第二个构造器，设置屏障打开前首先运行的线程
          */
@@ -84,7 +84,7 @@ public class CyclicBarrierBasicDemo {
 
                 //已经打开的屏障，再次有线程等待的话，还会重新生效--视为循环
                 new Thread(() -> {
-                    LOGGER.info("屏障破损之后，再有线程加入等待：" + Thread.currentThread().getName());
+                    LOGGER.info("屏障打开之后，再有线程加入等待：" + Thread.currentThread().getName());
                     try {
                         //BrokenBarrierException
                         barrier0.await();
@@ -101,7 +101,7 @@ public class CyclicBarrierBasicDemo {
                 LOGGER.info("通过barrier.getNumberWaiting()获取正在等待的线程数：打开屏障之后---" + barrier0.getNumberWaiting());
                 Thread.sleep(10);
                 new Thread(() -> {
-                    LOGGER.info("屏障破损之后，再有线程加入等待：" + Thread.currentThread().getName());
+                    LOGGER.info("屏障打开之后，再有线程加入等待：" + Thread.currentThread().getName());
                     try {
                         //BrokenBarrierException
                         barrier0.await();
@@ -133,9 +133,11 @@ public class CyclicBarrierBasicDemo {
                             barrier2.await();
                             LOGGER.info("222屏障已经打开.");
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            //e.printStackTrace();
+                            LOGGER.info("222被中断");
                         } catch (BrokenBarrierException e) {
-                            e.printStackTrace();
+                            //e.printStackTrace();
+                            LOGGER.info("222被重置");
                         }
                     });
                 }
@@ -150,16 +152,17 @@ public class CyclicBarrierBasicDemo {
                             barrier2.await();
                             LOGGER.info("333屏障已经打开.");
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            //e.printStackTrace();
+                            LOGGER.info("333被中断");
                         } catch (BrokenBarrierException e) {
-
-                            LOGGER.info("在等待过程中，执行reset()方法，等待的线程跑出BrokenBarrierException异常，并不再等待");
-                            e.printStackTrace();
+                            LOGGER.info("在等待过程中，执行reset()方法，等待的线程抛出BrokenBarrierException异常，并不再等待");
+                            //e.printStackTrace();
                         }
                     });
                 });
                 Thread.sleep(100);
                 barrier2.reset();
+                executorService2.shutdown();
                 break;
             case 2:
                 CyclicBarrier barrier1 = new CyclicBarrier(3);
@@ -171,10 +174,10 @@ public class CyclicBarrierBasicDemo {
                         barrier1.await();
                     } catch (InterruptedException e) {
                         LOGGER.info(Thread.currentThread().getName() + " is interrupted.");
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     } catch (BrokenBarrierException e) {
                         LOGGER.info(Thread.currentThread().getName() + " is been broken.");
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
                 });
                 Thread.sleep(10);
@@ -186,13 +189,13 @@ public class CyclicBarrierBasicDemo {
                         barrier1.await(1, TimeUnit.SECONDS);
                     } catch (InterruptedException e) {
                         LOGGER.info(Thread.currentThread().getName() + " is interrupted.");
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     } catch (BrokenBarrierException e) {
                         LOGGER.info(Thread.currentThread().getName() + " is been reset().");
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     } catch (TimeoutException e) {
                         LOGGER.info(Thread.currentThread().getName() + " is timeout.");
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
                 });
                 Thread.sleep(100);
@@ -204,20 +207,22 @@ public class CyclicBarrierBasicDemo {
 
                 System.out.println();
                 Thread.sleep(5000);
-                //通过reset()重置屏障回顾初始状态，也包括是否破损
+                //通过reset()重置屏障回初始状态，也包括是否破损
                 barrier1.reset();
                 LOGGER.info("reset()之后，当前屏障是否破损：" + barrier1.isBroken());
+                LOGGER.info("reset()之后，当前等待线程数量：" + barrier1.getNumberWaiting());
+                executorService.shutdown();
                 break;
             case 3:
                 //构造器：设置屏障放开前做的事情
                 CyclicBarrier barrier3 = new CyclicBarrier(2, () -> {
-                    LOGGER.info("屏障放开，我先来！");
+                    LOGGER.info("屏障放开，[屏障线程]先运行！");
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    LOGGER.info("屏障放开，我先来！我的事情做完了");
+                    LOGGER.info("[屏障线程]的事情做完了!");
                 });
                 for (int i = 0; i < 2; i++) {
                     new Thread(() -> {

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class SemaphoreDemo {
     /**
      * 信号量实例---食堂打饭
-     * 1.学校有2个食堂
+     * 1.学校食堂有2个打饭窗口
      * 2.学校中午有20个学生 按次序 排队打饭
      * 3.每个人打饭时耗费时间不一样
      * 4.有的学生等的不耐烦就走了
@@ -129,30 +129,30 @@ public class SemaphoreDemo {
             }
         }
 
-        /**
-         * <p>食堂打饭</p>
-         *
-         * @author hanchao 2018/3/31 21:13
-         **/
-        public static void main(String[] args) throws InterruptedException {
-            //101班的学生
-            Thread[] students101 = new Thread[5];
-            for (int i = 0; i < 20; i++) {
-                //前10个同学都在耐心的等待打饭
-                if (i < 10) {
-                    new Thread(new Student("打饭学生" + i, SemaphoreDemo.semaphore, 0)).start();
-                } else if (i >= 10 && i < 15) {//这5个学生没有耐心打饭，只会等1000毫秒
-                    new Thread(new Student("泡面学生" + i, SemaphoreDemo.semaphore, 1)).start();
-                } else {//这5个学生没有耐心打饭
-                    students101[i - 15] = new Thread(new Student("聚餐学生" + i, SemaphoreDemo.semaphore, 2));
-                    students101[i - 15].start();
-                }
+    }
+    /**
+     * <p>食堂打饭</p>
+     *
+     * @author hanchao 2018/3/31 21:13
+     **/
+    public static void main(String[] args) throws InterruptedException {
+        //101班的学生
+        Thread[] students101 = new Thread[5];
+        for (int i = 0; i < 20; i++) {
+            //前10个同学都在耐心的等待打饭
+            if (i < 10) {
+                new Thread(new Student("打饭学生" + i, SemaphoreDemo.semaphore, 0)).start();
+            } else if (i >= 10 && i < 15) {//这5个学生没有耐心打饭，只会等1000毫秒
+                new Thread(new Student("泡面学生" + i, SemaphoreDemo.semaphore, 1)).start();
+            } else {//这5个学生没有耐心打饭
+                students101[i - 15] = new Thread(new Student("聚餐学生" + i, SemaphoreDemo.semaphore, 2));
+                students101[i - 15].start();
             }
-            //
-            Thread.sleep(5000);
-            for (int i = 0; i < 5; i++) {
-                students101[i].interrupt();
-            }
+        }
+        //
+        Thread.sleep(5000);
+        for (int i = 0; i < 5; i++) {
+            students101[i].interrupt();
         }
     }
 }

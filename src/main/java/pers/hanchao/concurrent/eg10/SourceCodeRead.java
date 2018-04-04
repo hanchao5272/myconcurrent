@@ -98,7 +98,7 @@ public class SourceCodeRead {
 
          <p>The {@link Executors} class contains utility methods to convert from other common forms to {@code Callable} classes.
 
-         {Executors工具类}包含一些工具方法，这些方法能够将一些其他常见的形式转换成{Calllable接口}的实现类。
+         {Executors工具类}包含一些工具方法，这些方法能够将一些其他常见的形式转换成{Callable接口}的实现类。
 
          @see Executor
          @since 1.5

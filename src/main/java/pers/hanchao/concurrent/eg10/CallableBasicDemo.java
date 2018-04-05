@@ -76,5 +76,4 @@ public class CallableBasicDemo {
         System.out.println("实现Callable接口 + Executor框架，获取了结果：" + result.get());
         executorService.shutdown();
     }
-
 }

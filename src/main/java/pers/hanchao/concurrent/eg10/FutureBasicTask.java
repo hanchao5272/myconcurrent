@@ -44,6 +44,7 @@ public class FutureBasicTask {
         //isCancelled():任务是否取消了
         System.out.println("1000ms的时候计算是否取消：" + future.isCancelled());
 
+        System.out.println();
         //cancel取消-true表示即使在运行也取消，false表示如果没运行可以取消
         future.cancel(true);
         try {
@@ -56,6 +57,7 @@ public class FutureBasicTask {
         //isCancelled():任务是否取消了
         System.out.println("cancel之后计算是否取消：" + future.isCancelled());
 
+        System.out.println();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -84,6 +86,7 @@ public class FutureBasicTask {
         //isCancelled():任务是否取消了
         System.out.println("get(timeout,TimeUnit)超时之后，cancel之后计算是否取消：" + future.isCancelled());
 
+        System.out.println();
         //阻塞的等待计算结果，直到获取计算结果
         try {
             System.out.println("阻塞的等待计算结果，直到获取计算结果：" + future.get());

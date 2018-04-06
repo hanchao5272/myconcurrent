@@ -23,7 +23,7 @@ public class ExecutorServiceDemo {
          * 1 ExecutorService shutdown 当正在运行的线程运行结束后，关闭线程池
          * 2 ExecutorService shutdownNow 理解关闭线程池，正在运行的线程将被停止
          */
-        int type = 2;
+        int type = 0;
         switch (type) {
             case 0:
                 //Executor   无法主动关闭 根据创建线程池的方式采取不同的关闭策略
@@ -86,7 +86,7 @@ public class ExecutorServiceDemo {
         //executorService.isTerminated():在线程池服务执行shutdown()或者shutdownNow()方法之后，所有的任务是否已经完成
         //如果没有执行shutdown()或者shutdownNow()方法，则永远返回false
         executorService.isTerminated();
-        //阻塞等待终止所有的任务终止
+        //阻塞等待所有的任务终止
         //如果等待时间超时，则返回false
         //如果当前线程被interrupt，则抛出InterruptedException异常
         //如果线程池了执行shutdown()或者shutdownNow()方法，并且所有的任务都已经完成，则返回true

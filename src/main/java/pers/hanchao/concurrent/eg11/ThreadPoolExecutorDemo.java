@@ -16,7 +16,7 @@ public class ThreadPoolExecutorDemo {
     private static final Logger LOGGER = Logger.getLogger(ThreadPoolExecutorDemo.class);
 
     /**
-     * <p>线程池执行器示例</p>
+     * <p>ThreadPoolExecutor-线程池执行器示例</p>
      *
      * @author hanchao 2018/4/5 14:22
      **/
@@ -51,7 +51,7 @@ public class ThreadPoolExecutorDemo {
          *      的并且拥有同样优先级(NORM_PRIORITY)的非守护线程。
          *
          *
-         * 字段7：rejectedExecutionHandler 拒绝任务处理器 threadPoolExecutor.setRejectedExecutionHandler(null);
+         * 参数7：rejectedExecutionHandler 拒绝任务处理器 threadPoolExecutor.setRejectedExecutionHandler(null);
          *      在以下两种情况下，在{submit(Runnable)方法}中新提交的任务可能被拒绝：
          *       - {执行器}已经关闭。
          *       - {执行器}使用有限的线程池大小和工作队列大小，并且都已经饱和。

@@ -1,189 +1,86 @@
 # Java同步学习代码实例
 
+CSDN专题：https://blog.csdn.net/column/details/20199.html
 
-**安装jdk**
-安装
-```
-tar -zxvf jdk-8u161-linux-x64.tar.gz 
-sudo cp -r jdk1.8.0_161 /usr/local/
-```
-修改配置
-```
-sudo apt install vim
-sudo vim /etc/profile
-```
-末尾追加：
-```cmd
-JAVA_HOME=/usr/local/jdk1.8.0_161
-JRE_HOME=/usr/local/jdk1.8.0_161/jre
-CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
-PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
-export JAVA_HOME JRE_HOME CLASS_PATH PATH
+---------
 
-```
-生效
-```
-hanchao@hanchao-virtual-machine:/etc$ echo $PATH
-/home/hanchao/bin:/home/hanchao/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-hanchao@hanchao-virtual-machine:/etc$ source /etc/profile
-hanchao@hanchao-virtual-machine:/etc$ echo $PATH
-/home/hanchao/bin:/home/hanchao/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/usr/local/jdk1.8.0_161/bin:/usr/local/jdk1.8.0_161/jre/bin
-```
+最近在系统的学习Java并发（concurrent），遂将学习所得整理成博文，作为今后参考的依据。
+预计学习：
 
-永久生效：重启
+1.√进程与线程、线程优缺点、死锁
+2.√线程状态、基本方法-》线程状态转换
+3.√java内存模型与volatile关键字
+4.√synchronized block
+5.√裸线程：Thread、runnable
+6.√线程变量：ThreadLocal
+7.√原子变量：Atomic
+8.并发结合：BlockingQueue、ConcurrentMap和ConcurrentNavigableMap
+9.√执行者与线程池：Executor、ThreadPool、Future&Callables
+10.ForkJoin框架
+11.Actor模型
 
-查看
-```
-hanchao@hanchao-virtual-machine:/etc$ java -version
-java version "1.8.0_161"
-Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
+章节目录（更新中...）：
 
-```
-
-**安装tomcat**
-解压存放
-```
-unzip -q apache-tomcat-7.0.82.zip 
-sudo cp -r apache-tomcat-7.0.82 /usr/local/tomcat
-rm -rf apache-tomcat-7.0.82 
-sudo mv tomcat apache-tomcat-7.0.82
-
-```
-查看接口是否被占用：创建root密码并切换至root用户
-```
-hanchao@hanchao-virtual-machine:/usr/local$ netstat -apn|grep 8080
-（并非所有进程都能被检测到，所有非本用户的进程信息将不会显示，如果想看到所有信息，则必须切换到 root 用户）
-hanchao@hanchao-virtual-machine:/usr/local$ su
-密码： 
-su：认证失败
-hanchao@hanchao-virtual-machine:/usr/local$ sudo passwd root
-输入新的 UNIX 密码： 
-重新输入新的 UNIX 密码： 
-passwd：已成功更新密码
-hanchao@hanchao-virtual-machine:/usr/local$ su - root
-密码： 
-root@hanchao-virtual-machine:~# netstat -apn|grep 8080
-
-```
-启动tomcat
-```
-root@hanchao-virtual-machine:/usr/local/apache-tomcat-7.0.82/bin# ./startup.sh
--su: ./startup.sh: 权限不够
-root@hanchao-virtual-machine:/usr/local/apache-tomcat-7.0.82/bin# ll
-总用量 816
-drwxr-xr-x 2 root root   4096 4月   4 10:15 ./
-drwxr-xr-x 9 root root   4096 4月   4 10:15 ../
--rw-r--r-- 1 root root  28503 4月   4 10:15 bootstrap.jar
--rw-r--r-- 1 root root  14028 4月   4 10:15 catalina.bat
--rw-r--r-- 1 root root  21646 4月   4 10:15 catalina.sh
--rw-r--r-- 1 root root   1686 4月   4 10:15 catalina-tasks.xml
--rw-r--r-- 1 root root  24283 4月   4 10:15 commons-daemon.jar
--rw-r--r-- 1 root root 204944 4月   4 10:15 commons-daemon-native.tar.gz
--rw-r--r-- 1 root root   2040 4月   4 10:15 configtest.bat
--rw-r--r-- 1 root root   1922 4月   4 10:15 configtest.sh
--rw-r--r-- 1 root root   8157 4月   4 10:15 daemon.sh
--rw-r--r-- 1 root root   2091 4月   4 10:15 digest.bat
--rw-r--r-- 1 root root   1965 4月   4 10:15 digest.sh
--rw-r--r-- 1 root root   3430 4月   4 10:15 setclasspath.bat
--rw-r--r-- 1 root root   3547 4月   4 10:15 setclasspath.sh
--rw-r--r-- 1 root root   2020 4月   4 10:15 shutdown.bat
--rw-r--r-- 1 root root   1902 4月   4 10:15 shutdown.sh
--rw-r--r-- 1 root root   2022 4月   4 10:15 startup.bat
--rw-r--r-- 1 root root   1904 4月   4 10:15 startup.sh
--rw-r--r-- 1 root root  44739 4月   4 10:15 tomcat-juli.jar
--rw-r--r-- 1 root root 404159 4月   4 10:15 tomcat-native.tar.gz
--rw-r--r-- 1 root root   4021 4月   4 10:15 tool-wrapper.bat
--rw-r--r-- 1 root root   5024 4月   4 10:15 tool-wrapper.sh
--rw-r--r-- 1 root root   2026 4月   4 10:15 version.bat
--rw-r--r-- 1 root root   1908 4月   4 10:15 version.sh
-
-root@hanchao-virtual-machine:/usr/local/apache-tomcat-7.0.82/bin# chmod +x *.sh
-root@hanchao-virtual-machine:/usr/local/apache-tomcat-7.0.82/bin# ./startup.sh 
-Using CATALINA_BASE:   /usr/local/apache-tomcat-7.0.82
-Using CATALINA_HOME:   /usr/local/apache-tomcat-7.0.82
-Using CATALINA_TMPDIR: /usr/local/apache-tomcat-7.0.82/temp
-Using JRE_HOME:        /usr/local/jdk1.8.0_161/jre
-Using CLASSPATH:       /usr/local/apache-tomcat-7.0.82/bin/bootstrap.jar:/usr/local/apache-tomcat-7.0.82/bin/tomcat-juli.jar
-Tomcat started.
-
-```
-
-**把tomcat做成服务**
-复制配置
-```
-cp /usr/java/tomcat/bin/catalina.sh /etc/init.d/tomcat    #重命名的tomcat为以后的服务名
-```
-修改配置
-```
-### BEGIN INIT INFO
-# Provides:          tomcat
-# Required-Start:    $remote_fs $network
-# Required-Stop:     $remote_fs $network
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: The tomcat Java Application Server
-### END INIT INFO
-
-CATALINA_HOME=/usr/local/apache-tomcat-7.0.82
-JAVA_HOME=/usr/local/jdk1.8.0_161
-```
-配置文件授权
-
-```
-chmod 755 /etc/init.d/tomcat
-
-```
-在Ubuntu中是没有chkconfig命令的，可以用update-rc.d 来代替。
-```
-sudo update-rc.d tomcat defaults
-```
-启动服务
-```
-root@hanchao-virtual-machine:/etc/init.d# sudo service tomcat start
-
-```
-
-
-**solr老版本下载地址**
-
-http://archive.apache.org/dist/lucene/solr/
-
-http://archive.apache.org/dist/lucene/solr/6.6.0/
-
-solr-6.6.0.zip
-
-`unzip -q solr-6.6.0.zip`
-
-**solr安装**
-
-usr/local/solr/solr-6.6.0
-
-```shell
-hanchao@hanchao-virtual-machine:/usr$ mv /home/hanchao/solr-6.6.0/ /usr/local/
-mv: 无法将'/home/hanchao/solr-6.6.0/' 移动至'/usr/local/solr-6.6.0': 权限不够
-
-hanchao@hanchao-virtual-machine:/usr$ sudo mv /home/hanchao/solr-6.6.0/ /usr/local/
-```
-
-**solr服务启动**
-
-```
-hanchao@hanchao-virtual-machine:~$ /usr/local/solr-6.6.0/bin/solr start
-Waiting up to 180 seconds to see Solr running on port 8983 [\]  
-Started Solr server on port 8983 (pid=2404). Happy searching!
-
-```
-
-**solr修改时区**
-默认时区：
-Java Properties-->user.timezone = UTC
-修改solr/bin/solr.in.sh linux      solr.in.cmd=windows
-
-```
-#SOLR_TIMEZONE="UTC"
-SOLR_TIMEZONE="UTC+8"
-./solr restart
-```
-
+- [Java并发学习系列-绪论](http://blog.csdn.net/hanchao5272/article/details/79437370)
+- 基本概念与发展历史
+	- [Java并发01:进程、线程、并发、并行、多线程、线程安全、死锁、并发优缺点](http://blog.csdn.net/hanchao5272/article/details/79513153)
+	- [Java并发02:Java并发Concurrent技术发展简史(各版本JDK中的并发技术)](http://blog.csdn.net/hanchao5272/article/details/79521731)
+- Thread的线程方法与状态转换
+	- [Java并发03:多线程实现三方式:继承Thread类、实现Runnable接口、实现Callable接口](http://blog.csdn.net/hanchao5272/article/details/79524351)
+	- [Java并发04:Thread的基本方法(1)-Name、ThreadGroup、activeCount、isAlive、守护线程等](http://blog.csdn.net/hanchao5272/article/details/79525182)
+	- [Java并发05:Thread的基本方法(2)-join方法-线程插队](http://blog.csdn.net/hanchao5272/article/details/79525372)
+	- [Java并发06:Thread的基本方法(3)-yield方法的分析与实例说明](http://blog.csdn.net/hanchao5272/article/details/79526150)
+	- [Java并发07:Thread的基本方法(4)-Thread.sleep()、Object.wait()、notify()和notifyAll()](http://blog.csdn.net/hanchao5272/article/details/79530141)
+	- [Java并发08:Thread的基本方法(5)-interrupt()、isInterrupted()](http://blog.csdn.net/hanchao5272/article/details/79528463)
+	- [Java并发09:Thread的基本方法(6)-线程优先级priority相关说明与操作](http://blog.csdn.net/hanchao5272/article/details/79530141)
+	- [Java并发10:线程的状态Thread.State及其线程状态之间的转换](http://blog.csdn.net/hanchao5272/article/details/79533700)
+- JMM、指令重排、happens-before原则、原子性、可见性与有序性
+	- [Java并发11:Java内存模型、指令重排、happens-before原则](http://blog.csdn.net/hanchao5272/article/details/79575491)
+	- [Java并发12:并发三特性-原子性、可见性和有序性概述及问题示例](http://blog.csdn.net/hanchao5272/article/details/79597319)
+	- [Java并发13:并发三特性-原子性定义、原子性问题与原子性保证技术](http://blog.csdn.net/hanchao5272/article/details/79598495)
+	- [Java并发14:并发三特性-可见性定义、可见性问题与可见性保证技术](http://blog.csdn.net/hanchao5272/article/details/79598669)
+	- [Java并发15:并发三特性-有序性定义、有序性问题与有序性保证技术](http://blog.csdn.net/hanchao5272/article/details/79598874)
+- 易变类型关键字volatile
+	- [Java并发16:volatile关键字的两种用法-一次性状态标志、双重检查单例模式](http://blog.csdn.net/hanchao5272/article/details/79604845)
+- 同步关键字synchronized
+	- [Java并发17:synchronized关键字的两种用法-同步代码块(4)和同步方法(2)](http://blog.csdn.net/hanchao5272/article/details/79606329)
+- 显式锁Lock
+	- [Java并发18:Lock系列-Lock接口与synchronized关键字的比较](http://blog.csdn.net/hanchao5272/article/details/79679919)
+	- [Java并发19:Lock系列-Lock接口基本方法学习实例](http://blog.csdn.net/hanchao5272/article/details/79680547)
+	- [Java并发20:Lock系列-Condition接口基本方法学习实例](http://blog.csdn.net/hanchao5272/article/details/79681037)
+	- [Java并发21:Lock系列-ReadWriteLock接口和ReentrantReadWriteLock类基本方法学习实例](http://blog.csdn.net/hanchao5272/article/details/79683202)
+- 原子变量Atomic
+	- [Java并发22:Atomic系列-原子类型整体概述与类别划分](http://blog.csdn.net/hanchao5272/article/details/79686147)
+	- [Java并发23:Atomic系列-普通原子类型AtomicXxxx学习笔记](http://blog.csdn.net/hanchao5272/article/details/79686177)
+	- [Java并发24:Atomic系列-原子类型数组AtomicXxxxArray学习笔记](http://blog.csdn.net/hanchao5272/article/details/79687179)
+	- [Java并发25:Atomic系列-原子类型字段更新器AtomicXxxxFieldUpdater学习笔记](http://blog.csdn.net/hanchao5272/article/details/79688696)
+	- [Java并发26:Atomic系列-带版本戳的原子引用类型AtomicStampedReference与AtomicMarkableReference](http://blog.csdn.net/hanchao5272/article/details/79689355)
+	- [Java并发27:Atomic系列-原子类型累加器XxxxAdder和XxxxAccumulator的学习笔记](http://blog.csdn.net/hanchao5272/article/details/79689366)
+- 线程本地变量ThreadLocal
+	- [Java并发28:ThreadLocal学习笔记-简介、基本方法及应用场景](http://blog.csdn.net/hanchao5272/article/details/79691497)
+	- [Java并发29:ThreadLocalRandom学习笔记-随机数的三种使用方法](http://blog.csdn.net/hanchao5272/article/details/79691746)
+- 倒计时门闩CountDownLatch
+	- [Java并发30:CountDownLatch(上)--基本方法学习](http://blog.csdn.net/hanchao5272/article/details/79774055)
+	- [Java并发31:CountDownLatch(下)--两种应用场景](http://blog.csdn.net/hanchao5272/article/details/79774397)
+- 循环屏障CyclicBarrier
+	- [Java并发32:CyclicBarrier的基本方法和应用场景实例](http://blog.csdn.net/hanchao5272/article/details/79779639)
+- 信号量Semaphore
+	- [Java并发33:Semaphore基本方法与应用场景实例](http://blog.csdn.net/hanchao5272/article/details/79780045)
+- Callable接口+Future接口
+	- [Java并发34:Callable+Future系列--Callable接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79826627)
+	- [Java并发35:Callable+Future系列--Future接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79826913)
+	- [Java并发36:Callable+Future系列--FutureTask学习笔记](http://blog.csdn.net/hanchao5272/article/details/79828674)
+- 执行器Executor
+	- [Java并发37:Executor系列--Executor接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79829407)
+	- [Java并发38:Executor系列--ExecutorService接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79830245)
+	- [Java并发39:Executor系列--ScheduleExecutorService接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79834744)
+	- [Java并发40:Executor系列--ThreadPoolExecutor和ScheduledThreadPoolExecutor学习笔记](http://blog.csdn.net/hanchao5272/article/details/79835004)
+	- [Java并发41:Executor系列--Executors(上)-Runnable转Callable、ThreadFactory和不可配置的线程池](http://blog.csdn.net/hanchao5272/article/details/79839668)
+	- [Java并发42:Executor系列--Executors(下)-几类预定义的线程池ExecutorService和可调度线程池ScheduledExecutorService](http://blog.csdn.net/hanchao5272/article/details/79840138)
+- 并发集合
+	- [Java并发43:并发集合系列-序章](http://blog.csdn.net/hanchao5272/article/details/79846005)
+	- [Java并发44:并发集合系列-基于写时复制的CopyOnWriteArrayList和CopyOnWriteArraySet](http://blog.csdn.net/hanchao5272/article/details/79846293)
+	- [Java并发45:并发集合系列-基于跳表的ConcurrentSkipListSet和ConcurrentSkipListMap](http://blog.csdn.net/hanchao5272/article/details/79859087)
+	- [Java并发46:并发集合系列-基于锁分段技术的ConcurrentHashMap](http://blog.csdn.net/hanchao5272/article/details/79859688)
+- 持续更新中...
 

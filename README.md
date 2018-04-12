@@ -7,17 +7,17 @@ CSDN专题：https://blog.csdn.net/column/details/20199.html
 最近在系统的学习Java并发（concurrent），遂将学习所得整理成博文，作为今后参考的依据。
 预计学习：
 
-1.√进程与线程、线程优缺点、死锁
-2.√线程状态、基本方法-》线程状态转换
-3.√java内存模型与volatile关键字
-4.√synchronized block
-5.√裸线程：Thread、runnable
-6.√线程变量：ThreadLocal
-7.√原子变量：Atomic
-8.并发结合：BlockingQueue、ConcurrentMap和ConcurrentNavigableMap
-9.√执行者与线程池：Executor、ThreadPool、Future&Callables
-10.ForkJoin框架
-11.Actor模型
+1. √进程与线程、线程优缺点、死锁
+2. √线程状态、基本方法-》线程状态转换
+3. √java内存模型与volatile关键字
+4. √synchronized block
+5. √裸线程：Thread、runnable
+6. √线程变量：ThreadLocal
+7. √原子变量：Atomic
+8. 并发结合：BlockingQueue、ConcurrentMap和ConcurrentNavigableMap
+9. √执行者与线程池：Executor、ThreadPool、Future&Callables
+10. ForkJoin框架
+11. Actor模型
 
 章节目录（更新中...）：
 

@@ -9,7 +9,9 @@ import java.util.concurrent.RecursiveTask;
 
 /**
  * <p>ForkJoin框架-RecursiveTask-有返回值-超大集合分割计算</p>
- *
+ * <p>计算N,N+1,N+2....N+Max的和</p>
+ * <p>第一种方式：单线程计算</p>
+ * <p>第二种方式：ForkJoin并发计算</p>
  * @author hanchao 2018/4/15 21:31
  **/
 public class RecursiveTaskDemo {
@@ -22,7 +24,7 @@ public class RecursiveTaskDemo {
      **/
     static class LargeSetComputeTask extends RecursiveTask<Long> {
 
-        //阈值=JVM运行时的可用CPU核数
+        //阈值
         private static final int THRESHOLD = 100000;
         private int start;//开始下标
         private int end;//结束下标
@@ -59,7 +61,7 @@ public class RecursiveTaskDemo {
         private long computeByUnit() {
             long sum = 0L;
             for (int i = start; i < end; i++) {
-                sum += i + i;
+                sum += i;
             }
             return sum;
         }
@@ -81,7 +83,7 @@ public class RecursiveTaskDemo {
         LOGGER.info("1.第一种计算方式--单线程计算");
         long result = 0L;
         for (long i = 0; i < count; i++) {
-            result += i + i;
+            result += i;
         }
         LOGGER.info("1.计算结果：" + result + ",用时：" + (System.currentTimeMillis() - start1) + "ms.\n");
 

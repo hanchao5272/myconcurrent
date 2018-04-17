@@ -31,8 +31,8 @@ public class RecursiveActionDemo {
      **/
     static class DataExchangeTask extends RecursiveAction {
 
-        //阈值=运行期可用CPU核数
-        private static final int THRESHOLD = Runtime.getRuntime().availableProcessors();
+        //阈值=5000
+        private static final int THRESHOLD = 5000;
         //开始索引
         private int start;
         //结束索引
@@ -121,11 +121,13 @@ public class RecursiveActionDemo {
         //向ForkJoin线程池提交任务
         forkJoinPool.submit(dataExchangeTask);
         //线程阻塞，等待所有任务完成
-        forkJoinPool.awaitTermination(180, TimeUnit.SECONDS);
+        forkJoinPool.awaitTermination(5, TimeUnit.SECONDS);
         //任务完成之后关闭线程池
         forkJoinPool.shutdown();
 
         //查询最终传输的数据量
         LOGGER.info("4.结束时，DB2中的数据量：" + DB2.size());
+        //查询其中一条数据
+        LOGGER.info("5.查询其中一条数据：" + DB2.peek());
     }
 }

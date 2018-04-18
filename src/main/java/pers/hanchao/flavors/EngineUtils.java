@@ -33,7 +33,7 @@ public class EngineUtils {
     public static String searchByEngine(String question,String engine) throws InterruptedException {
         //获取随机的时间间隔
         int interval = RandomUtils.nextInt(1,5000);
-        LOGGER.info("搜索引擎[" + engine + "]正在查询，预计用时" + interval + "毫秒...");
+//        LOGGER.info("搜索引擎[" + engine + "]正在查询，预计用时" + interval + "毫秒...");
         //当前线程休眠指定时间，模拟搜索引擎用时
         Thread.sleep(interval);
         return "通过搜索引擎[" + engine + "]，首先查到关于(" + question + ")问题的结果，用时 = " + interval + "毫秒!";

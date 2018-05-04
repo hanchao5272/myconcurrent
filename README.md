@@ -1,25 +1,25 @@
-# Java同步学习代码实例
-
-CSDN专题：https://blog.csdn.net/column/details/20199.html
-
----------
-
 最近在系统的学习Java并发（concurrent），遂将学习所得整理成博文，作为今后参考的依据。
-预计学习：
 
-1. √进程与线程、线程优缺点、死锁
-2. √线程状态、基本方法-》线程状态转换
-3. √java内存模型与volatile关键字
-4. √synchronized block
-5. √裸线程：Thread、runnable
-6. √线程变量：ThreadLocal
-7. √原子变量：Atomic
-8. 并发结合：BlockingQueue、ConcurrentMap和ConcurrentNavigableMap
-9. √执行者与线程池：Executor、ThreadPool、Future&Callables
-10. ForkJoin框架
-11. Actor模型
+## 内容简述
 
-章节目录（更新中...）：
+- 基本概念与发展历史
+- Thread的线程方法与状态转换
+- JMM、指令重排、happens-before原则、原子性、可见性与有序性
+- 易变类型关键字volatile
+- 同步关键字synchronized
+- 显式锁Lock
+- 原子变量Atomic
+- 线程本地变量ThreadLocal
+- 倒计时门闩CountDownLatch
+- 循环屏障CyclicBarrier
+- 信号量Semaphore
+- Callable接口+Future接口
+- Executor(执行器)并发框架
+- 并发集合
+- ForkJoin(分解合并)并发框架
+- Actor(角色)并发框架
+
+## 章节目录：
 
 - [Java并发学习系列-绪论](http://blog.csdn.net/hanchao5272/article/details/79437370)
 - 基本概念与发展历史
@@ -70,7 +70,7 @@ CSDN专题：https://blog.csdn.net/column/details/20199.html
 	- [Java并发34:Callable+Future系列--Callable接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79826627)
 	- [Java并发35:Callable+Future系列--Future接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79826913)
 	- [Java并发36:Callable+Future系列--FutureTask学习笔记](http://blog.csdn.net/hanchao5272/article/details/79828674)
-- 执行器Executor
+- 执行器Executor并发框架
 	- [Java并发37:Executor系列--Executor接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79829407)
 	- [Java并发38:Executor系列--ExecutorService接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79830245)
 	- [Java并发39:Executor系列--ScheduleExecutorService接口学习笔记](http://blog.csdn.net/hanchao5272/article/details/79834744)
@@ -82,5 +82,22 @@ CSDN专题：https://blog.csdn.net/column/details/20199.html
 	- [Java并发44:并发集合系列-基于写时复制的CopyOnWriteArrayList和CopyOnWriteArraySet](http://blog.csdn.net/hanchao5272/article/details/79846293)
 	- [Java并发45:并发集合系列-基于跳表的ConcurrentSkipListSet和ConcurrentSkipListMap](http://blog.csdn.net/hanchao5272/article/details/79859087)
 	- [Java并发46:并发集合系列-基于锁分段技术的ConcurrentHashMap](http://blog.csdn.net/hanchao5272/article/details/79859688)
-- 持续更新中...
+	- [Java并发47:并发集合系列-基于CAS算法的非阻塞单向无界队列ConcurrentLinkedQueue](http://blog.csdn.net/hanchao5272/article/details/79947143)
+	- [Java并发48:并发集合系列-基于CAS算法的非阻塞双向无界队列ConcurrentLinkedDueue](http://blog.csdn.net/hanchao5272/article/details/79947785)
+	- [Java并发49:并发集合系列-基于独占锁+链表实现的单向阻塞无界队列LinkedBlockingQueue](http://blog.csdn.net/hanchao5272/article/details/79948018)
+	- [Java并发50:并发集合系列-基于独占锁实现的双向阻塞队列LinkedBlockingDeque](http://blog.csdn.net/hanchao5272/article/details/79948823)
+	- [Java并发51:并发集合系列-基于独占锁+数组实现的单向阻塞有界队列ArrayBlockingQueue](http://blog.csdn.net/hanchao5272/article/details/79949020)
+	- [Java并发52:并发集合系列-基于独占锁+二叉树最小堆实现的单向阻塞无界优先级队列PriorityBlockingQueue](http://blog.csdn.net/hanchao5272/article/details/79949170)
+	- [Java并发53:并发集合系列-基于独占锁+PriorityBlockingQueue实现的单向阻塞无界延时队列DelayQueue](http://blog.csdn.net/hanchao5272/article/details/79949737)
+	- [Java并发54:并发集合系列-基于CAS算法的非阻塞无数据缓冲队列SynchronousQueue](http://blog.csdn.net/hanchao5272/article/details/79950112)
+	- [Java并发55:并发集合系列-基于预占模式+链表的单向阻塞无界队列LinkedTransferQueue](http://blog.csdn.net/hanchao5272/article/details/79950628)
+- ForkJoin并发框架
+	- [Java并发56:ForkJoin并发框架的原理、2种ForkJoinTask的用法以及ForkJoinPool的常用方法](https://blog.csdn.net/hanchao5272/article/details/79982095)
+- Actor并发框架
+	- [Java并发57:Akka Actors并发框架浅谈及入门示例](https://blog.csdn.net/hanchao5272/article/details/79998467)
 
+
+------------------
+便签
+
+1. [JDK8 Documents](https://docs.oracle.com/javase/8/index.html)
